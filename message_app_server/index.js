@@ -31,7 +31,22 @@ app.post('/api/insert', (req, res) => {
     const user_email = req.body.user_email;
     const user_phone = req.body.user_phone;
     const user_pass = req.body.user_pass;
+    const user_confirm = req.body.user_confirm;
 
+    //Check passwords matching
+    if(user_pass == user_confirm){
+
+        console.log(user_pass)
+        console.log(user_confirm)
+        console.log('match')
+
+    }else if(user_pass != user_confirm){
+
+        console.log(user_pass)
+        console.log(user_confirm)
+        console.log('No match');
+
+    }
     
     //Creating an SQL command to query into our MySQL pool with dynamic input
     const sqlIns = 
@@ -39,9 +54,6 @@ app.post('/api/insert', (req, res) => {
     
     //Query the above SQL command with the specific parameters to gather user data on front end
     db.query(sqlIns, [user_name, user_email, user_phone, user_pass], (err, result) => {console.log(err)}); 
-    
-    
-
 
 });
 
