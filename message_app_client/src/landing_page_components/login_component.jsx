@@ -15,6 +15,10 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
+//Component imports
+import pass_check from './inc_pass_component';
+
+
 //Side_Div component of landing page
 class Login_Form extends Component {
 

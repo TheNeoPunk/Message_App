@@ -15,10 +15,12 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 //Component Imports
-import Login_Component from './login_component';
+import pass_check from './inc_pass_component';
 
 //Side_Div component of landing page
 class Register_Form extends Component {
+
+    
     
     //Initialize stae properties before component is attached to App.js
     constructor(props){
@@ -31,8 +33,8 @@ class Register_Form extends Component {
             email: null,
             phone: null,
             password: null,
-            passConfirm: null
-
+            passConfirm: null,
+            passNoMatchMessage: null
         }
     }
 
@@ -40,23 +42,39 @@ class Register_Form extends Component {
     handleSubmit = (event) => {
 
         event.preventDefault(); //Prevents default data from being submitted
-        const finalData = this.state;
+        const finalData = this.state; //Assign props of state obj
         console.log('final data:', finalData);
         console.log(finalData.password);
+      
+        //Check if password inputs match
+        if(finalData.password == finalData.passConfirm){
 
-        //Link front end to back end after grabbing user data from state object
-        Axios.post("http://localhost:3001/api/insert", {
+            //Grab variable property from global state object
+            //then assign string
+            //Link front end to back end after grabbing user data from state object
+            Axios.post("http://localhost:3001/api/insert", {
 
+            //Assigns data from this path
             user_name: finalData.fullName, 
             user_email: finalData.email, 
             user_phone: finalData.phone, 
-            user_pass: finalData.password
+            user_pass: finalData.password,  
+            user_confirm: finalData.passConfirm 
 
         }).then(() => { //Debug
 
             alert('Success');
 
-        })
+        });
+
+        }else if(finalData.password != finalData.passConfirm){
+
+            this.setState({passNoMatchMessage: 'true'});
+
+        }
+
+        
+
     }
 
     //Handles input value and stores user input in form
@@ -154,11 +172,7 @@ class Register_Form extends Component {
 
         //Stores full name value from form
         //Prepared for dynamic updating on render
-        const {fullName} = this.state;
-        const {email} = this.state;
-        const {phone} = this.state;
-        const {password} = this.state;
-        const {passConfirm} = this.state;
+        const passNoMatchMessage = this.state.passNoMatchMessage;
 
         return ( 
            
@@ -170,12 +184,12 @@ class Register_Form extends Component {
             <p>Phone is {phone}</p>
             <p>Pass is {password}</p>
         <p>Match is {passConfirm}</p>*/}
-
+        {passNoMatchMessage}
             {/*Filler Space container*/}
             <div class="container">
-                <div class="row filler-s">
+                <div class="row filler-xs">
                   <div class="col">
-                 
+               
                   </div>
                   <div class="col">
                    
@@ -238,8 +252,8 @@ class Register_Form extends Component {
                                     <div><input className="p-2" type="text" name="fname" defaultValue="FULL NAME" onChange={this.handleNameInputChange}/></div> <br/>
                                     <div><input className="p-2" type="text" name="email" defaultValue="EMAIL" onChange={this.handleNameEmailChange}/></div> <br/>
                                     <div><input className="p-2" type="text" name="phone" defaultValue="PHONE" onChange={this.handleNamePhoneChange}/></div> <br/>
-                                    <div className="d-inline"><input style={{width: '50%'}} className="p-2" type="text" name="pass" defaultValue="PASSWORD" onChange={this.handleNamePassChange}/></div>
-                                    <div className="d-inline"><input style={{width: '50%'}} className="p-2" type="text" name="cpass" defaultValue="CONFIRM PASSWORD" onChange={this.handleNamePassConChange}/></div>
+                                    <div><input className="p-2" type="text" name="pass" defaultValue="PASSWORD" onChange={this.handleNamePassChange}/></div><br/>
+                                    <div><input className="p-2" type="text" name="cpass" defaultValue="CONFIRM PASSWORD" onChange={this.handleNamePassConChange}/></div>
                                 </div>
                                 <br/>
                                 <div className="container left-20 top-20">
