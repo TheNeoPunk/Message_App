@@ -33,7 +33,7 @@ app.post('/api/insert', (req, res) => {
     const user_pass = req.body.user_pass;
     const user_confirm = req.body.user_confirm;
 
-    //Check passwords matching
+    //Check pass
     if(user_pass == user_confirm){
 
         console.log(user_pass)
