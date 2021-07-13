@@ -6,7 +6,6 @@ body{ font-family: 'Montserrat', sans-serif; }
  
 }
 
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -58,7 +57,7 @@ body{ font-family: 'Montserrat', sans-serif; }
 .filler-m div{height: 140px;}
 .filler-l div{height: 210px;}
 
-input[type="text"]
+input[type="text"], input[type="email"]
 {
   background: transparent;
   border: none;
@@ -66,6 +65,7 @@ input[type="text"]
   width: 100%;
   color: #707070;
 }
+
 
 input:focus{outline: none; background-color: #e3e3e3;}
 
