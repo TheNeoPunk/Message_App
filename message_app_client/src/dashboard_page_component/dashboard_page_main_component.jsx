@@ -13,27 +13,28 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 class Dashboard_Component extends Component {
     state = {  }
     render() { 
-        return ( 
 
-        <div className="container p-4">
-            <div className="row filler-xs">
-              <div className="col">
+      return ( 
 
+        <div className="fill-window container-fluid">
+            <div className="row fill-height">
+              <div className="side-nav-column m-0 no-padding">
+                
                 <Side_nav />
-    
-
+             
               </div>
-              <div className="col no-match-pass-div rounded-3">
-                <p className="text-danger fw-bold"> This is a Dashboard_Component </p>
+              <div className="col-11 no-match-pass-div rounded-3">
+                <p className="logo fw-bold text-center fs-1">
+                  LOGO
+                </p>
               </div>
-              <div className="col">
             
-              </div>
+             
             </div>
         </div>   
         
 
-        );
+      );
     }
 }   
  

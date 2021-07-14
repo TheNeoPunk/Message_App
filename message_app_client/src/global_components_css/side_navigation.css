@@ -1,0 +1,31 @@
+.nav-icon{ 
+
+    width: 50px;
+    height: 50px;
+  
+    background-color: yellow;
+    
+}
+.nav-icon-container{
+
+    padding: 2em 0em;
+
+}
+.nav-container{
+  
+ 
+    background-color: gray;
+}
+
+.nav-icon-container:hover{
+
+    
+}
+
+.side-nav-column{
+
+    width: 7em;
+    background-color: #3966C1;
+
+}
+

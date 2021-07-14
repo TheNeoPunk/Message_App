@@ -43,7 +43,6 @@ body{ font-family: 'Montserrat', sans-serif; }
 
 .fill-window {
   height: 100%;
-  
   position: absolute;
 }
 
@@ -81,5 +80,15 @@ button
 
 .main-font-color{
   color: #707070;
+}
+
+ul{
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.no-padding {
+  padding: 0 !important;
+ 
 }
 
