@@ -17,12 +17,12 @@ class Dashboard_Component extends Component {
       return ( 
 
         <div className="fill-window container-fluid">
-            <div className="row fill-height">
-              <div className="side-nav-column m-0 no-padding">
+            <div className="row fill-height no-padding">
+              <nav className="side-nav-column no-padding">
                 
                 <Side_nav />
              
-              </div>
+              </nav>
               <div className="col-11 no-match-pass-div rounded-3">
                 <p className="logo fw-bold text-center fs-1">
                   LOGO

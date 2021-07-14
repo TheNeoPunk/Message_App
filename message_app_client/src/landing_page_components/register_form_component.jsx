@@ -189,7 +189,7 @@ class Register_Form extends Component {
         //Stores full name value from form
         //Prepared for dynamic updating on render
         const passNoMatchMessage = this.state.passNoMatchMessage;
-        const passNoMatchDivColor = this.state.passNoMatchDivColor;
+        //const passNoMatchDivColor = this.state.passNoMatchDivColor;
 
         return ( 
            

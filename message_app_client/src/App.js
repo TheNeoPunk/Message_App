@@ -32,6 +32,9 @@ function App() {
         <Route path="/" exact component={Register_Form} />
         <Route path="/login" component={Login_Component} />
         <Route path="/dashboard" component={Dashboard_Component} />
+        <Route path="/messages" component={Dashboard_Component} />
+        <Route path="/contacts" component={Dashboard_Component} />
+        <Route path="/settings" component={Dashboard_Component} />
       </Switch>
 
      </Router>

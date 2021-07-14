@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 //Import source CSS
-import '../global_components_css/side_navigation.css'
+import '../global_components_css/side_navigation.css';
+import '../App.css';
 
 //Bootstrap CSS imports
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -9,32 +10,67 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
+import { BrowserRouter as Router, Route, Switch, Link, NavLink } from 'react-router-dom';  //import for page navigation
+
+
+ //nav properties array
+ const navArr = [
+    {
+        id: 1,
+    },
+    {
+        id: 2,
+    },
+    {
+        id: 3,
+    },
+    {
+        id: 4,
+    }
+]
 
 class Side_nav extends Component {
-    state = { 
 
-        nav_items: ['', '' , '','']
+    //globalize state properties
+    constructor(props) {
 
-     }
-    render() { 
+        super(props);
+
+        this.state = { 
+
+            nav_items: [
+                {to: '/dashboard'}, 
+                {to: '/messages'}, 
+                {to: '/contacts'}, 
+                {to: '/settings'}],  // nav instances
     
+        }
+       
+    }
+
+    render() { 
+
         return ( 
-            
+        
             <React.Fragment>
+                     
+              
+                <ul className="nav-container no-padding">
 
-                <ul className="nav-container">
-                {this.state.nav_items.map(
+                    {this.state.nav_items.map(
 
-                    item => <li className="nav-icon-container"><div className="nav-icon rounded-circle">{item}</div></li>
-                    
-                )}
+                        link => <NavLink to={link.to} activeClassName="nav-icon-active"> <li className="nav-icon-container"><div className="nav-icon rounded-circle"></div></li></NavLink>
+
+                    )}
+
                 </ul>
-                  
-           
+              
 
+            </React.Fragment> 
 
-            </React.Fragment>
-           
+            
+                
+            
         );
     }
 }
