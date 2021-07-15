@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 
 //Component exports
 import Side_nav from '../global_components/side_navigation';
@@ -10,7 +11,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
-class Dashboard_Component extends Component {
+class Main_Component extends Component {
     state = {  }
     render() { 
 
@@ -24,12 +25,14 @@ class Dashboard_Component extends Component {
              
               </nav>
               <div className="col-11 no-match-pass-div rounded-3">
-                <p className="logo fw-bold text-center fs-1">
+                {/*<p className="logo fw-bold text-center fs-1">
                   LOGO
-                </p>
+                </p>*/}
+                <p> This is a dashboard </p>
+               
+
               </div>
             
-             
             </div>
         </div>   
         
@@ -38,4 +41,4 @@ class Dashboard_Component extends Component {
     }
 }   
  
-export default Dashboard_Component
+export default Main_Component

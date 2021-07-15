@@ -16,7 +16,6 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 //Component imports
-import pass_check from './inc_pass_component';
 import Intro from './intro_component';
 
 

@@ -12,23 +12,6 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 import { BrowserRouter as Router, Route, Switch, Link, NavLink } from 'react-router-dom';  //import for page navigation
 
-
- //nav properties array
- const navArr = [
-    {
-        id: 1,
-    },
-    {
-        id: 2,
-    },
-    {
-        id: 3,
-    },
-    {
-        id: 4,
-    }
-]
-
 class Side_nav extends Component {
 
     //globalize state properties
