@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
-import validator from 'validator'; 
-
-
+import { useHistory } from "react-router-dom"; 
 
 //CSS Imports
 import '../landing_page_css/form_component.css';
@@ -22,8 +20,6 @@ import Intro from './intro_component';
 
 //Side_Div component of landing page
 class Register_Form extends Component {
-
-    
     
     //Initialize stae properties before component is attached to App.js
     constructor(props){
@@ -38,19 +34,44 @@ class Register_Form extends Component {
             password: null,
             passConfirm: null,
             passNoMatchMessage: null,
-            passNoMatchDivColor: null
+            passNoMatchDivColor: null,
+            redirectToDashboard: null,
+            postReqDone: null
 
         }
     }
 
+    //Redirect to the dashboard main page for user account
+    redirectToDashboard = () => {
+
+       let redirectCheck = true;
+       
+    
+       this.setState({
+
+            redirectToDashboard: redirectCheck
+
+       });
+
+       if(this.state.redirectToDashboard === true && this.state.postReqDone === true){
+
+            console.log('This is working');
+
+       }else{
+
+            console.log('This is not working');
+
+       }
+
+    };
+    
     //Handles all form data and takes in submission event of form
     handleSubmit = (event) => {
 
-        event.preventDefault(); //Prevents default data from being submitted
         const finalData = this.state; //Assign props of state obj
         console.log('final data:', finalData);
-        console.log(finalData.password);
-      
+        
+
         //Check if password inputs match
         if(finalData.password === finalData.passConfirm){
 
@@ -59,18 +80,24 @@ class Register_Form extends Component {
             //Link front end to back end after grabbing user data from state object
             Axios.post("http://localhost:3001/api/insert", {
 
-            //Assigns data from this path
-            user_name: finalData.fullName, 
-            user_email: finalData.email, 
-            user_phone: finalData.phone, 
-            user_pass: finalData.password,  
-            user_confirm: finalData.passConfirm 
+                //Assigns data from this path
+                user_name: finalData.fullName, 
+                user_email: finalData.email, 
+                user_phone: finalData.phone, 
+                user_pass: finalData.password,  
+                user_confirm: finalData.passConfirm 
 
-        }).then(() => { //Debug
+            });
 
-            alert('Success');
+            //Allow for redirect to dashboard after registry
+            this.setState({
+                
+                postReqDone: true
 
-        });
+            });
+
+            //console.log(this.state.postReqDone);
+            
 
         }else if(finalData.password !== finalData.passConfirm){
 
@@ -82,8 +109,7 @@ class Register_Form extends Component {
 
         }
 
-        
-
+        event.preventDefault(); //Prevents default data from being submitted
     }
 
     //Handles input value and stores user input in form
@@ -112,13 +138,6 @@ class Register_Form extends Component {
         //Grabs the input name and value from the submission method call
         //console.log(email.target.value);
 
-        //Email filter conditions
-        if(email.target.value !== 'email'){
-
-            console.log('adghdapkg');
-            
-        }
-
         //Configures state object to whatever value is in the method
         this.setState({
 
@@ -130,7 +149,7 @@ class Register_Form extends Component {
     }
 
     //Handles input value and stores user input in form
-   /* handleNamePhoneChange = (phone) => {
+    handleNamePhoneChange = (phone) => {
 
         phone.preventDefault();
 
@@ -145,7 +164,7 @@ class Register_Form extends Component {
 
         });
 
-    }*/
+    }
 
     //Handles input value and stores user input in form
     handleNamePassChange = (pass) => {
@@ -190,6 +209,7 @@ class Register_Form extends Component {
         //Prepared for dynamic updating on render
         const passNoMatchMessage = this.state.passNoMatchMessage;
         //const passNoMatchDivColor = this.state.passNoMatchDivColor;
+     
 
         return ( 
            
@@ -217,6 +237,7 @@ class Register_Form extends Component {
                               <div className="col-10 no-match-pass-div rounded-3">
 
                                 <p className="text-danger fw-bold">{passNoMatchMessage} </p>
+                                
 
                               </div>
                               <div className="col">
@@ -279,7 +300,7 @@ class Register_Form extends Component {
                                             <div className="top-50">
                                                 <div><input className="p-2" type="text" name="fname" defaultValue="FULL NAME" onChange={this.handleNameInputChange}/></div> <br/>
                                                 <div><input className="p-2" type="email" name="email" defaultValue="EMAIL" onChange={this.handleNameEmailChange}/></div> <br/>
-                                               {/* <div><input className="p-2" type="text" name="phone" defaultValue="PHONE" onChange={this.handleNamePhoneChange}/></div> <br/> */}
+                                                <div><input className="p-2" type="text" name="phone" defaultValue="PHONE" onChange={this.handleNamePhoneChange}/></div> <br/> 
                                                 <div><input className="p-2" type="text" name="pass" defaultValue="PASSWORD" onChange={this.handleNamePassChange}/></div><br/>
                                                 <div><input className="p-2" type="text" name="cpass" defaultValue="CONFIRM PASSWORD" onChange={this.handleNamePassConChange}/></div>
                                             </div>
@@ -315,9 +336,12 @@ class Register_Form extends Component {
                                                   </div>
                                                   <div className="col text-center">
 
-                                                    <button 
-                                                        className="rounded-pill fs-3 fw-bold ">
+                                                    <button type="submit" className="rounded-pill fs-3 fw-bold " onClick={this.redirectToDashboard}>
+                                                        {/*<Link
+                                                            style={{textDecoration: 'none', color: 'white'}} 
+                                                        to='/confirmation'> */}   
                                                             Register
+                                                        {/*</Link>*/}
                                                     </button>
                                                         <Link 
                                                             style={{textDecoration: 'none'}} 

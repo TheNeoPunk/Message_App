@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';  //import for page navigation
 
 
+
 //Component imports
 import Intro from './landing_page_components/intro_component';
 import Register_Form from './landing_page_components/register_form_component';

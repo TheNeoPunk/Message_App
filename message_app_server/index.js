@@ -1,6 +1,6 @@
-//Importing depenencies
+//Importing depenencies                      
 const express = require('express');
-const bodyparser = require('body-parser');
+const bodyparser = require('body-parser');   //Parses html body parts into js
 const mysql = require('mysql');
 const cors = require('cors');
 
@@ -23,7 +23,7 @@ app.use(cors());
 app.use(express.json()); //allows body parsing of front end data from axios
 
 //Make api req to back end
-app.post('/api/insert', (req, res) => {
+app.post('/api/insert', async (req, res) => {
 
     //Grab Axios defines variables from register component with body parser
     //variables contain state props variables
@@ -33,7 +33,14 @@ app.post('/api/insert', (req, res) => {
     const user_pass = req.body.user_pass;
     const user_confirm = req.body.user_confirm;
 
-    //Check pass
+    //More debugging on registry
+    console.log(user_name);
+    console.log(user_email);
+    console.log(user_phone);
+    console.log(user_pass);
+    console.log(user_confirm);
+
+    //Pass confirmation debugging
     if(user_pass == user_confirm){
 
         console.log(user_pass)
