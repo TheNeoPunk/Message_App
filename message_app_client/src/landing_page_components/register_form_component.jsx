@@ -41,7 +41,7 @@ class Register_Form extends Component {
         }
     }
 
-    //Redirect to the dashboard main page for user account
+    //After handleSubmit is finished submitting data, give signal to redirect in render()
     redirectToDashboard = () => {
 
        let redirectCheck = true;
@@ -52,16 +52,6 @@ class Register_Form extends Component {
             redirectToDashboard: redirectCheck
 
        });
-
-       if(this.state.redirectToDashboard === true && this.state.postReqDone === true){
-
-            console.log('This is working');
-
-       }else{
-
-            console.log('This is not working');
-
-       }
 
     };
     
@@ -209,7 +199,18 @@ class Register_Form extends Component {
         //Prepared for dynamic updating on render
         const passNoMatchMessage = this.state.passNoMatchMessage;
         //const passNoMatchDivColor = this.state.passNoMatchDivColor;
-     
+
+        //
+        if(this.state.redirectToDashboard === true && this.state.postReqDone === true){
+
+            console.log('This is working');
+            return (<p>  </p>)
+
+        }else{
+
+            console.log('This is not working');
+
+        }
 
         return ( 
            
