@@ -6,6 +6,7 @@ import Side_nav from '../global_components/side_navigation';
 
 //CSS imports
 import '../global_components_css/main_page_component.css';
+import '../App.css';
 
 //Bootstrap CSS imports
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -47,6 +48,18 @@ class Main_Component extends Component {
                   LOGO
                 </p>
 
+                {/* FILLER CONTAINER */}
+                <div className="container">
+                  <div className="row filler-xs">
+                    <div className="col">
+
+                    </div>
+                    <div className="col">
+
+                    </div>
+                  </div>
+                </div>
+
                 {/* */}
                 <div class="container">
                   <div class="row align-items-start">
@@ -54,18 +67,28 @@ class Main_Component extends Component {
                     {/* Rendered dashboard data */}
                     {this.state.dashboard_data_instances_one.map(
 
-                      data_item => <div className="col "><div className="rounded-circle bg-primary dashboard-data-container">{data_item}</div></div>
+                      data_item => <div className="col"><div className="rounded-circle bg-light dashboard-data-container shadow mx-auto">{data_item}</div></div>
 
                     )}
                   </div>
 
-                  {/* Insert filler row here for spacing */}
+                {/* FILLER CONTAINER */}
+                <div className="container">
+                  <div className="row filler-s">
+                    <div className="col">
 
-                  <div class="row align-items-center">
+                    </div>
+                    <div className="col">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row align-items-center">
                      {/* Rendered dashboard data */}
                      {this.state.dashboard_data_instances_two.map(
 
-                        data_item => <div className="col"><div className="rounded-circle bg-primary dashboard-data-container">{data_item}</div></div>
+                        data_item => <div className="col"><div className="rounded-circle bg-light shadow dashboard-data-container mx-auto align-middle">{data_item}</div></div>
 
                       )}
                   </div>

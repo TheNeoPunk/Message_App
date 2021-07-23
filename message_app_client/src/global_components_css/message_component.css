@@ -1,0 +1,67 @@
+.message-board{
+
+   background-color: #263B66;
+   width: 300px; 
+}
+
+/***********/
+.message-search-container{
+
+    background-color: #394969;
+    width: 300px;
+
+}
+.message-search-box{
+
+    margin: 1em;
+
+}
+/***********/
+
+
+/***********/
+.message-box{
+
+    background-color: #EDEDED;
+    /* width: 990px; */
+
+}
+
+.message-box-item{
+
+    background: gray;
+    padding: 10em;
+}
+
+.message-box-title{
+    background: gray;
+
+}
+/***********/
+
+.message-chat-header{
+
+    
+
+}
+
+
+
+.message-profile{
+
+    background-color: #FFFFFF;
+    width: 200px; 
+
+}
+
+.row div{
+    padding: 0;
+}
+
+.message-div-container{
+
+    display: flex;
+
+}
+
+
