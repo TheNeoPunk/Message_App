@@ -38,6 +38,11 @@
 
 }
 /***********/
+.message-chat-attach-color{
+
+    color: red;
+
+}
 
 .message-chat-header{
 
@@ -45,13 +50,22 @@
 
 }
 
+.message-chat-box{}
+
+.message-chat-box div{
+ 
+
+}
+
+.message-box-input{
+    border: none !important;
+    
+}
 
 
 .message-profile{
-
     background-color: #FFFFFF;
-    width: 200px; 
-
+    width: 250px;
 }
 
 .row div{
@@ -61,6 +75,21 @@
 .message-div-container{
 
     display: flex;
+
+}
+
+.msg-receiver-header div{
+
+    
+    
+
+}
+
+.mssg-portrait{
+
+    width: 150px;
+    height: 250px;
+    border-radius: 25px;
 
 }
 

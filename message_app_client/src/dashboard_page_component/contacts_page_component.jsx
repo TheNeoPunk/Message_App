@@ -4,6 +4,9 @@ import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  
 //Component exports
 import Side_nav from '../global_components/side_navigation';
 
+//CSS imports
+import '../global_components_css/contacts_component.css';
+
 //Bootstrap CSS imports
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.css';
@@ -24,11 +27,40 @@ class Contact_Component extends Component {
                 <Side_nav />
              
               </nav>
-              <div className="col-11 no-match-pass-div rounded-3">
+              <div className="col">
                 {/*<p className="logo fw-bold text-center fs-1">
                   LOGO
                 </p>*/}
-                <p> This is contacts </p>
+                <div class="d-flex bg-secondary">
+                  <div className="flex-grow-1">1</div>
+                  <div className="flex-grow-1 text-center">
+                    
+                    <p className="logo fw-bold text-center fs-1">
+                      CONTACTS
+                    </p>
+                    <div class="d-flex">
+                      <div className="flex-grow-1">1</div>
+                      <div className="search-bar bg-dark "></div>
+                      <div className="flex-grow-1">1</div>
+                    </div>
+
+                  </div>
+                  <div className="flex-grow-1">3</div>
+                </div>
+
+                <div class="d-flex">
+                  <div className="flex-shrink-1">1</div>
+                  <div className="flex-grow-1 text-center">
+                    
+                    <div class="d-flex">
+                      <div className="flex-grow-1">1</div>
+                      <div className="flex-grow-1">1</div>
+                      <div className="flex-grow-1">1</div>
+                    </div>
+
+                  </div>
+                  <div className="flex-shrink-1">3</div>
+                </div>
                
 
               </div>

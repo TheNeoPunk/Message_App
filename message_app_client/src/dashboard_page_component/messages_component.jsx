@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
+
+//ICON imports
+import { BsPlusCircle } from "react-icons/bs";
+import { BsUpload } from "react-icons/bs";
+import { BsFillGridFill } from "react-icons/bs";
 
 //Component exports
 import Side_nav from '../global_components/side_navigation';
@@ -16,6 +20,8 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
+
+
 
 class Message_Component extends Component {
 
@@ -75,21 +81,97 @@ class Message_Component extends Component {
                   </div>
                   
                   {/*---MESSAGE CHAT---- */}
-                  <div className="fill-height message-box no-padding align-items-end d-flex flex-grow-1 flex-column">
+                  <div className="fill-height message-box no-padding align-items-start d-flex flex-grow-1 flex-column">
                     {/*---HEADER BAR----*/}
-                    <div class="message-chat-header border-bottom border-primary p-4">
+                    <div class="mb-auto message-chat-header border-bottom border-primary p-4 fill-width">
                       Header
                     </div>
-
                     
-                    <div class="mt-auto message-chat-header border-primary p-4">
-                      Header
+                    <div className="message-chat-box border-primary p-4 fill-width d-flex ">
+
+                     
+                      <div className="p-2">
+
+                        <BsPlusCircle/>
+
+                      </div>
+                      <div className="message-box-input fill-width p-2">
+                        
+                        <input type="text" />
+                      
+                      </div>
+                      
+                      <div className="ms-auto p-2">
+
+                        <BsUpload/>
+
+                      </div>
+                     
+                    
                     </div>
                 
                   </div>
                   
                   {/*---MESSAGE RECEIVER PROFILE---- */}
-                  <div className="fill-height message-profile no-padding"> </div>
+                  <div className="fill-height message-profile no-padding">
+
+                     {/*------- */}
+                    <div>
+                      {/*------- */}
+                      <div className="msg-receiver-header d-flex mb-3">
+                        <div className="p-2 bd-highlight flex-grow-1"></div>
+                        <div className="p-2 bd-highlight flex-grow-1"></div>
+                        <div className="ms-auto p-3 bd-highlight"><BsFillGridFill/></div>
+                      </div>
+                    </div>
+
+                    {/*------- */}
+                    <div>
+                      {/*------- */}
+                      <div className="msg-receiver-header d-flex">
+                        <div className="p-2 flex-grow-1"></div>
+                        <div className="p-2">
+                          <div className="mssg-portrait bg-secondary"></div>
+                          <div className="text-center">
+                            
+                            <p>Lorem Ipsum</p>
+                            <p>Lorem Ipsum</p>
+                            
+                          </div>
+
+                          
+                        </div>
+                        <div className="p-2 flex-grow-1"></div>
+                      </div>
+                    </div>
+
+                    {/*------- */}
+                    <div>
+                      {/*------- */}
+                      <div className="msg-receiver-header d-flex">
+                        <div className="flex-grow-1"></div>
+                        <div className="p-2 bd-highlight">
+                          <p>Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+                        </div>
+                        <div className="p-2 bd-highlight">
+                          
+                          <p>Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+
+                        </div>
+                        <div className="flex-grow-1"></div>
+                      </div>
+                    </div>
+                    
+
+                  </div>
+
+                  
                   
                 </div>
               
