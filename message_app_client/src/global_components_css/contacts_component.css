@@ -1,5 +1,22 @@
 .search-bar{
 
-    width: 200px;
-    height: 50px;
+    width: 30em;
+    height: 3em;
+    border-radius: 2em;
+    border: none;
+    color: white;
+}
+
+.contact-item{
+
+    height: 9em;
+    width: 70em;
+
+}
+
+.profile-icon{
+
+    width: 6em;
+    height: 6em;
+
 }

@@ -24,7 +24,8 @@ class Side_nav extends Component {
             nav_items: [
                 {to: '/dashboard'}, 
                 {to: '/messages'}, 
-                {to: '/contacts'}],  // nav instances
+                {to: '/contacts'},
+                {to: '/settings'}],  // nav instances
     
         }
        

@@ -31,7 +31,7 @@ class Contact_Component extends Component {
                 {/*<p className="logo fw-bold text-center fs-1">
                   LOGO
                 </p>*/}
-                <div class="d-flex bg-secondary">
+                <div class="d-flex">
                   <div className="flex-grow-1">1</div>
                   <div className="flex-grow-1 text-center">
                     
@@ -40,24 +40,36 @@ class Contact_Component extends Component {
                     </p>
                     <div class="d-flex">
                       <div className="flex-grow-1">1</div>
-                      <div className="search-bar bg-dark "></div>
+                      <input className="search-bar bg-dark p-4" />
                       <div className="flex-grow-1">1</div>
                     </div>
 
                   </div>
                   <div className="flex-grow-1">3</div>
                 </div>
+                
+                {/* FILLER CONTAINER */}
+                <div className="container">
+                 <div className="row filler-xs">
+                   <div className="col">
+                   </div>
+                   <div className="col">
+                   </div>
+                 </div>
+                </div>
 
-                <div class="d-flex">
+                <div className="d-flex">
                   <div className="flex-shrink-1">1</div>
                   <div className="flex-grow-1 text-center">
-                    
-                    <div class="d-flex">
-                      <div className="flex-grow-1">1</div>
-                      <div className="flex-grow-1">1</div>
-                      <div className="flex-grow-1">1</div>
-                    </div>
+                    <div className="d-flex justify-content-center">
+                      <div className="contact-item bg-light shadow-sm d-flex">
 
+                        <div className="profile-icon bg-secondary m-4"></div>
+                        <div className="profile-icon bg-secondary m-4"></div>
+                        <div className="ms-auto profile-icon bg-secondary m-4"></div>
+
+                      </div>
+                    </div>
                   </div>
                   <div className="flex-shrink-1">3</div>
                 </div>
