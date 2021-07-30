@@ -1,0 +1,25 @@
+.setting-container{
+
+    width: 15em;
+    height: 630px;
+    border-radius: 40px;
+}
+
+.acc-portrait{
+
+    width: 150px;
+    height: 150px;
+    background-color: gray;
+}
+
+.setting-nav{
+
+    
+}
+
+.acc-edit-button{
+
+    width: 2em;
+    height: 2em;
+    background-color: green;
+}
