@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  
 //Component exports
 import Side_nav from '../global_components/side_navigation';
 
+
 //CSS imports
 import '../global_components_css/main_page_component.css';
 import '../App.css';
@@ -24,28 +25,42 @@ class Main_Component extends Component {
       this.state = { 
       
         dashboard_data_instances_one: [1 , 2, 3],
-        dashboard_data_instances_two: [4 , 5, 6]
+        dashboard_data_instances_two: [4 , 5, 6],
+        dashboard_title: null
       
       }
     }
 
+    componentDidMount(){
+
+      this.setState({
+
+        dashboard_title: localStorage.getItem('fullName')
+
+      });
+
+    }
+
     render() { 
 
-      return ( 
+      const dashboard_title = this.state.dashboard_title;
 
+      console.log("this is homepage", dashboard_title);
+      return ( 
+          
         <div className="fill-window container-fluid">
             <div className="row fill-height no-padding">
               {/* Side Navigation after registry or login*/}
               <nav className="side-nav-column no-padding">
                 
                 <Side_nav />
-             
+
               </nav>
 
               {/* Main Data dashboard */}
               <div className="col-11 no-match-pass-div rounded-3">
                 <p className="logo fw-bold text-center fs-1">
-                  LOGO
+                  Welcome {dashboard_title}
                 </p>
 
                 {/* FILLER CONTAINER */}
@@ -67,7 +82,7 @@ class Main_Component extends Component {
                     {/* Rendered dashboard data */}
                     {this.state.dashboard_data_instances_one.map(
 
-                      data_item => <div className="col"><div className="rounded-circle bg-light dashboard-data-container shadow mx-auto">{data_item}</div></div>
+                      data_item => <div className="col"><div className="rounded-circle bg-light dashboard-data-container shadow mx-auto"></div></div>
 
                     )}
                   </div>
@@ -88,7 +103,7 @@ class Main_Component extends Component {
                      {/* Rendered dashboard data */}
                      {this.state.dashboard_data_instances_two.map(
 
-                        data_item => <div className="col"><div className="rounded-circle bg-light shadow dashboard-data-container mx-auto align-middle">{data_item}</div></div>
+                        data_item => <div className="col"><div className="rounded-circle bg-light shadow dashboard-data-container mx-auto align-middle"></div></div>
 
                       )}
                   </div>

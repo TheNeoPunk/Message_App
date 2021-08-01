@@ -11,7 +11,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*******',
+    password: '*********',
     database: 'message_app_db'
 
 });

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 
+//Icon imports
+import {BsPencil} from "react-icons/bs";
+
 //Component exports
 import Side_nav from '../global_components/side_navigation';
 
@@ -38,57 +41,93 @@ class Setting_Component extends Component {
                     <div class="col-3 setting-nav">
                       <div className="setting-container bg-light shadow p-5">
 
-                        Hello World
+                        <div>Lorem Ipsum</div>
+                        <div>Lorem Ipsum</div>
+                        <div>Lorem Ipsum</div>
 
                       </div>
                     </div>
+                    
                     <div className="col-8">
 
                       <div className="d-flex justify-content-center">
 
-                        <div className="flex-grow-1">1</div>
-                        <div className="acc-portrait rounded-circle"> Hello World</div>
-                        <div className="flex-grow-1">
-                          
-                          <div className="ms-auto acc-edit-button"></div>
+                        <div className="flex-grow-1"></div>
+                        <div className="acc-portrait rounded-circle"></div>
+                        <div className="flex-grow-1 d-flex">
+
+                          <div className="flex-grow-1"></div>
+                          <div className="ms-auto acc-edit-button"><BsPencil/></div>
 
                         </div>
 
                       </div>
+
+                      {/* FILLER CONTAINER */}
+                      <div className="container">
+                            <div className="row filler-xs">
+                              <div className="col">
+                              </div>
+                              <div className="col">
+                              </div>
+                            </div>
+                      </div>
                       
                       <div className="d-flex justify-content-center">
 
-                        <form>
+                        <form className="account-sett">
 
                           <div className="container">
                             <div className="row">
 
-                              <div className="d-flex">
+                              <div className="d-flex m-2">
 
-                                <input type="text" />
-                                <input type="text" />
+                                <input className="m-2 p-2" type="text" />
+                                <input className="m-2 p-2" type="text" />
 
                               </div>
 
-                              <div className="d-flex">
+                              {/* FILLER CONTAINER */}
+                              <div className="container">
+                                    <div className="row filler-xs">
+                                      <div className="col">
+                                      </div>
+                                      <div className="col">
+                                      </div>
+                                    </div>
+                              </div>
 
-                                <input type="text" />
-                                <input type="text" />
+                              <div className="d-flex m-2">
+
+                                <input className="m-2 p-2" type="text" />
+                                <input className="m-2 p-2" type="text" />
 
                               </div>
 
                             </div>
                             
                           </div>
-                          
-                          <button> Button </button>
+                          {/* FILLER CONTAINER */}
+                          <div className="container">
+                            <div className="row filler-xs">
+                              <div className="col">
+                              </div>
+                              <div className="col">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="d-flex justify-content-center">
+                            <button className="rounded-pill fs-3 fw-bold " type="submit"> Button </button>
+                          </div>
+
                         </form>
 
                       </div>
 
                     </div>
                     <div class="col-1">
-                      Column
+                      
                     </div>
                   </div>
                 </div>

@@ -48,10 +48,10 @@ class Message_Component extends Component {
                 </nav>
 
                 {/*---MESSAGE COMPONENT---- */}
-                <div className="col d-flex" style={{background: 'gray'}}>
+                <div className="col d-flex no-padding">
                 
                   {/*---INCOMING MESSAGES----*/}
-                  <div className="fill-height message-board no-padding"> 
+                  <div className="fill-height message-board" > 
 
                     {/*---SUB TITLE----*/}
                     <div class="d-flex message-box-title mb-3">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
+import {BrowserRouter as Router, Link, Switch, Route, Redirect} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
 import { useHistory } from "react-router-dom"; 
 
@@ -17,9 +17,13 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 //Component Imports
 import Intro from './intro_component';
+import Main_Component from '../dashboard_page_component/main_page_component';
+
 
 //Side_Div component of landing page
 class Register_Form extends Component {
+    
+
     
     //Initialize stae properties before component is attached to App.js
     constructor(props){
@@ -38,28 +42,24 @@ class Register_Form extends Component {
             redirectToDashboard: null,
             postReqDone: null
 
-        }
-    }
+        };
+    };
 
     //After handleSubmit is finished submitting data, give signal to redirect in render()
     redirectToDashboard = () => {
+     
+        this.setState({
+ 
+            redirectToDashboard: true
+ 
+        });
+ 
+     };
 
-       let redirectCheck = true;
-       
-    
-       this.setState({
-
-            redirectToDashboard: redirectCheck
-
-       });
-
-    };
-    
     //Handles all form data and takes in submission event of form
     handleSubmit = (event) => {
 
         const finalData = this.state; //Assign props of state obj
-        console.log('final data:', finalData);
         
 
         //Check if password inputs match
@@ -79,6 +79,15 @@ class Register_Form extends Component {
 
             });
 
+            //Add user data to local storage after registry or login
+            localStorage.setItem('fullName', this.state.fullName);
+            localStorage.setItem('email', this.state.email);
+            localStorage.setItem('phone', this.state.phone);
+            localStorage.setItem('pass', this.state.pass);
+            
+            console.log(localStorage.getItem('fullName'))
+            console.log('final data:', finalData);
+            
             //Allow for redirect to dashboard after registry
             this.setState({
                 
@@ -86,8 +95,7 @@ class Register_Form extends Component {
 
             });
 
-            //console.log(this.state.postReqDone);
-            
+            console.log(this.state.redirectToDashboard, this.state.postMessage);
 
         }else if(finalData.password !== finalData.passConfirm){
 
@@ -100,6 +108,12 @@ class Register_Form extends Component {
         }
 
         event.preventDefault(); //Prevents default data from being submitted
+    }
+
+    handleRedirect(){
+
+        console.log('This is working');
+
     }
 
     //Handles input value and stores user input in form
@@ -194,27 +208,46 @@ class Register_Form extends Component {
     
     //Renders register form component
     render() { 
-
+        
+        //Obj Initial
+        //let history = useHistory();
+        
         //Stores full name value from form
+        
         //Prepared for dynamic updating on render
         const passNoMatchMessage = this.state.passNoMatchMessage;
+        const fullName = localStorage.getItem('fullName');
+        const email = localStorage.getItem('email');
+        const phone = localStorage.getItem('phone');
+        const pass = localStorage.getItem('pass');
+
         //const passNoMatchDivColor = this.state.passNoMatchDivColor;
 
         //
         if(this.state.redirectToDashboard === true && this.state.postReqDone === true){
 
             console.log('This is working');
-            return (<p>  </p>)
+            return <Redirect to={{
+                pathname: "/dashboard",
+                state: { 
+                    user_name: fullName,
+                    email: email,
+                    phone: phone,
+                    pass: pass
+                }
+              }} />
 
-        }else{
+        }else if(this.state.redirectToDashboard !== true && this.state.postReqDone !== true){
 
             console.log('This is not working');
 
+        }else{
+        
+            console.log('Nothing is working');
         }
 
+
         return ( 
-           
-          
 
             <div className="fill-window container-fluid bg-light">
                 {/* Main App Container */}
@@ -306,7 +339,7 @@ class Register_Form extends Component {
                                                 <div><input className="p-2" type="text" name="cpass" defaultValue="CONFIRM PASSWORD" onChange={this.handleNamePassConChange}/></div>
                                             </div>
                                             <br/>
-                                            <div className="container left-20 top-20">
+                                            <div className="container p-2">
                                                 <div className="row">
                                                     <div className="col-auto">
 
@@ -336,14 +369,15 @@ class Register_Form extends Component {
 
                                                   </div>
                                                   <div className="col text-center">
-
-                                                    <button type="submit" className="rounded-pill fs-3 fw-bold " onClick={this.redirectToDashboard}>
-                                                        {/*<Link
-                                                            style={{textDecoration: 'none', color: 'white'}} 
-                                                        to='/confirmation'> */}   
-                                                            Register
-                                                        {/*</Link>*/}
-                                                    </button>
+                                                 
+                                                        <button type="submit" className="rounded-pill fs-3 fw-bold" onClick={this.redirectToDashboard}>
+                                                            {/*<Link
+                                                                style={{textDecoration: 'none', color: 'white'}} 
+                                                            to='/confirmation'> */}   
+                                                                Register
+                                                            {/*</Link>*/}
+                                                        </button>
+                                               
                                                         <Link 
                                                             style={{textDecoration: 'none'}} 
                                                             to='/login'>
@@ -378,5 +412,5 @@ class Register_Form extends Component {
         );
     }
 }
- 
+
 export default Register_Form;
