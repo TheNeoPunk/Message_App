@@ -18,11 +18,72 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 //Component imports
 import Intro from './intro_component';
 
-
 //Side_Div component of landing page
 class Login_Form extends Component {
 
+     //Initialize stae properties before component is attached to App.js
+    constructor(props){
+
+        super(props);
+        //Creates fullName property before component is attached
+        this.state = { 
+
+            auth_email: null,
+            auth_pass: null
+
+        };
+    };
+
+    handleSubmit = (event) => {
+
+        const auth_Data = this.state;
+        console.log(auth_Data.auth_email, auth_Data.auth_pass);
+
+        //Send input data to login path in backend server
+        Axios.post("http://localhost:3001/login", {
+
+            auth_email: auth_Data.auth_email,
+            auth_pass: auth_Data.auth_pass
+
+        }).then((response) => { //Log any errors
+
+            console.log(response);
+
+        });
+
+        event.preventDefault();
+        
+    }
+
+    handleEmailAuth = (email) => {
+
+        email.preventDefault();
+
+        this.setState({
+
+            auth_email: email.target.value
+
+        });
+
+    }
+
+    handlePassAuth = (pass) => {
+
+        this.setState({
+
+            auth_pass: pass.target.value
+
+        });
+
+    }
+
+
     render() { 
+
+        /*
+        const auth_email = this.state.auth_email;
+        const auth_pass = this.state.auth_pass;
+        */
 
         return ( 
             
@@ -30,8 +91,9 @@ class Login_Form extends Component {
                 {/* Main App Container */}
 
                 <div className="row fill-height"> 
+
                     <div id="side_component" class="col-5 fs-1 fw-bold side_component" >
-                  {/* Side Intro Component*/} 
+                    {/* Side Intro Component*/} 
                     <Intro />
                 
                     </div>   
@@ -83,7 +145,7 @@ class Login_Form extends Component {
 
                                {/* Register form */}
                                 {/* On submission, input data is transmitted into these method calls */}
-                                    <form onSubmit={this.handleSubmit}>
+                                    <form>
                                         {/* Register form HEADER */}
                                         <div className="register-title">
                                             <div className="fw-bold fs-1">
@@ -109,8 +171,8 @@ class Login_Form extends Component {
 
                                             <div className="top-50">
                                                 
-                                                <div><input className="p-2" type="email" name="email" defaultValue="EMAIL" onChange={this.handleNameEmailChange}/></div> <br/>
-                                                <div><input className="p-2" type="text" name="pass" defaultValue="PASSWORD" onChange={this.handleNamePassChange}/></div><br/>
+                                                <div><input className="p-2" type="email" name="email" defaultValue="EMAIL" onChange={this.handleEmailAuth}/></div> <br/>
+                                                <div><input className="p-2" type="text" name="pass" defaultValue="PASSWORD" onChange={this.handlePassAuth}/></div><br/>
                                                
                                             </div>
                                             <br/>
@@ -146,8 +208,10 @@ class Login_Form extends Component {
                                                   <div className="col text-center">
 
                                                     <button 
-                                                        className="rounded-pill fs-3 fw-bold ">
-                                                            Register
+                                                        className="rounded-pill fs-3 fw-bold "
+                                                        onClick={this.handleSubmit}
+                                                    >
+                                                        Login
                                                     </button>
                                                         <Link 
                                                             style={{textDecoration: 'none'}} 

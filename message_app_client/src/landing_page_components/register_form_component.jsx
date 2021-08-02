@@ -23,8 +23,6 @@ import Main_Component from '../dashboard_page_component/main_page_component';
 //Side_Div component of landing page
 class Register_Form extends Component {
     
-
-    
     //Initialize stae properties before component is attached to App.js
     constructor(props){
 
@@ -60,7 +58,6 @@ class Register_Form extends Component {
     handleSubmit = (event) => {
 
         const finalData = this.state; //Assign props of state obj
-        
 
         //Check if password inputs match
         if(finalData.password === finalData.passConfirm){

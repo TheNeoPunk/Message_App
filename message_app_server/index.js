@@ -11,7 +11,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*********',
+    password: '*******',
     database: 'message_app_db'
 
 });
@@ -60,7 +60,48 @@ app.post('/api/insert', async (req, res) => {
         "INSERT INTO user_info (user_name, user_email, user_phone, user_pass) VALUES (?,?,?,?);";
     
     //Query the above SQL command with the specific parameters to gather user data on front end
-    db.query(sqlIns, [user_name, user_email, user_phone, user_pass], (err, result) => {console.log(err)}); 
+    db.query(
+        sqlIns, 
+        [user_name, user_email, user_phone, user_pass], 
+        (err, result) => {console.log(err)}); 
+
+});
+
+//Login authentication
+app.post('/login', async ( req, res) => {
+
+    //body parsing user insertted login data
+    const email = req.body.email
+    const password = req.body.password
+
+    //SQL command to select existing queries in DB
+    const sqlLoginSLC = "SELECT * FROM user_info WHERE user_name = ? AND user_pass = ?"
+
+    //Query into table
+    db.query(
+
+        sqlLoginSLC,
+        [email, password], //Grab body parser values
+        (err, result) => { //Feedback after process
+
+            //If there are errors
+            if(err){
+                //Log errors to front end
+                res.send(err);
+            }
+
+            //Check for results length from SQL command
+            if(result.length > 0){
+                //Send result
+                res.send(result)
+            }else{
+                //Send feedback otherwise
+                res.send({message: "No user found"});
+            }
+
+        }
+
+    );
 
 });
 
