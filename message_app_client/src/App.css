@@ -98,3 +98,12 @@ ul{
  
 }
 
+.search-bar-uni{
+
+  height: 3em;
+  border-radius: 2em;
+  border: none;
+  color: white;
+
+}
+

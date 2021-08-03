@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
+import {BrowserRouter as Router, Link, Switch, Route, Redirect} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
 
 
@@ -29,15 +29,20 @@ class Login_Form extends Component {
         this.state = { 
 
             auth_email: null,
-            auth_pass: null
+            auth_pass: null,
+            auth_phone: null,
+            auth_name: null,
+            un_auth_user_mssg: null,
+            auth_to_redir: false
 
         };
     };
 
+    //Handle form submission to backend server
     handleSubmit = (event) => {
 
         const auth_Data = this.state;
-        console.log(auth_Data.auth_email, auth_Data.auth_pass);
+        //console.log(auth_Data.auth_email, auth_Data.auth_pass);
 
         //Send input data to login path in backend server
         Axios.post("http://localhost:3001/login", {
@@ -47,6 +52,43 @@ class Login_Form extends Component {
 
         }).then((response) => { //Log any errors
 
+            //If there are incorrect creds
+            if(response.data.message){
+
+                //Render message from backend server
+                this.setState({
+
+                    un_auth_user_mssg: response.data.message
+
+                });
+                console.log(response);
+
+                
+            } //Else if there is a match
+            else if(response.data){
+
+                console.log(response.data);
+
+                //Assign SQL data request to local session data
+                localStorage.setItem('email', response.data[0].user_email);
+                localStorage.setItem('phone', response.data[0].user_phone);
+                localStorage.setItem('fullName', response.data[0].user_name);
+                localStorage.setItem('auth_req', response.data[0].incoming_friend_req);
+                localStorage.setItem('auth_activity', response.data[0].recent_activity);
+                localStorage.setItem('auth_total_activity', response.data[0].total_activity);
+                localStorage.setItem('auth_number_of_friends', response.data[0].number_of_friends);
+                localStorage.setItem('auth_short_desc', response.data[0].short_desc);
+                localStorage.setItem('auth_mssg_sent', response.data[0].messages_sent);
+
+                //Authorize a redirect
+                this.setState({
+
+                    auth_to_redir: true
+
+                });
+
+            }
+
             console.log(response);
 
         });
@@ -55,6 +97,7 @@ class Login_Form extends Component {
         
     }
 
+    //Handles email input
     handleEmailAuth = (email) => {
 
         email.preventDefault();
@@ -67,6 +110,7 @@ class Login_Form extends Component {
 
     }
 
+    //Handles pass input
     handlePassAuth = (pass) => {
 
         this.setState({
@@ -84,6 +128,45 @@ class Login_Form extends Component {
         const auth_email = this.state.auth_email;
         const auth_pass = this.state.auth_pass;
         */
+
+        //Render unauthorized message
+        const un_auth_user_mssg = this.state.un_auth_user_mssg;
+
+        const auth_email = localStorage.getItem('auth_email');
+        const auth_name = localStorage.getItem('email');
+        const auth_phone = localStorage.getItem('auth_phone');
+        const auth_req = localStorage.getItem('auth_req');
+        const auth_activity = localStorage.getItem('auth_activity');
+        const auth_total_activity = localStorage.getItem('auth_total_activity');
+        const auth_number_of_friends = localStorage.getItem('auth_number_of_friends');
+        const auth_short_desc = localStorage.getItem('auth_short_desc');
+        const auth_mssg_sent = localStorage.getItem('auth_mssg_sent');
+
+        //If login credential is authorized
+        if(this.state.auth_to_redir){
+
+            //Redirect with existing user data
+            console.log(this.state.auth_to_redir);
+            return <Redirect to={{
+
+                pathname: "/dashboard",
+                state: {
+
+                    user_name: auth_email,
+                    email: auth_name,
+                    phone: auth_phone,
+                    pass: auth_req,
+                    activity: auth_activity,
+                    total_activity: auth_total_activity,
+                    number_of_friends: auth_number_of_friends,
+                    short_desc: auth_short_desc,
+                    mssg_sent: auth_mssg_sent 
+
+                }
+
+            }} />
+
+        }
 
         return ( 
             
@@ -109,7 +192,7 @@ class Login_Form extends Component {
                               </div>
                               <div className="col-10 no-match-pass-div rounded-3">
 
-                                <p className="text-danger fw-bold"> </p>
+                                <p className="text-danger fw-bold"> {un_auth_user_mssg} </p>
 
                               </div>
                               <div className="col">
@@ -117,7 +200,7 @@ class Login_Form extends Component {
                               </div>
                             </div>
                         </div>   
-
+                        
                         {/* LOGO Placeholder */}
                         <p className="logo fw-bold text-center fs-1">
                             LOGO

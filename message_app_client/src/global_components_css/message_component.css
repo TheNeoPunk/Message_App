@@ -16,6 +16,30 @@
     margin: 1em;
 
 }
+
+.message-search-bar{
+
+
+  
+
+}
+
+.src-portrait{
+
+    width: 50px;
+    height: 50px;
+
+}
+
+.result-item-container{
+
+    color: white;
+
+}
+
+.result-item-text p{
+    margin: 0 !important;
+}
 /***********/
 
 
@@ -29,12 +53,20 @@
 
 .message-box-item{
 
-    background: gray;
+    color: white;
     padding: 10em;
+    margin-left: 2em;
+}
+
+.message-box-item:hover{
+
+    background-color: #1C2537;
+
 }
 
 .message-box-title{
-    background: gray;
+
+    color: white;
 
 }
 /***********/
@@ -92,5 +124,6 @@
     border-radius: 25px;
 
 }
+
 
 

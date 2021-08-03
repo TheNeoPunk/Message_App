@@ -80,9 +80,8 @@ class Register_Form extends Component {
             localStorage.setItem('fullName', this.state.fullName);
             localStorage.setItem('email', this.state.email);
             localStorage.setItem('phone', this.state.phone);
-            localStorage.setItem('pass', this.state.pass);
             
-            console.log(localStorage.getItem('fullName'))
+            console.log(localStorage.getItem('fullName'));
             console.log('final data:', finalData);
             
             //Allow for redirect to dashboard after registry
@@ -100,10 +99,9 @@ class Register_Form extends Component {
                 passNoMatchMessage: 'Passwords do not match',
                 passNoMatchDivColor: 'bg-danger'
             });
-            console.log('Passwords do not match.')
 
         }
-
+        
         event.preventDefault(); //Prevents default data from being submitted
     }
 
@@ -216,23 +214,22 @@ class Register_Form extends Component {
         const fullName = localStorage.getItem('fullName');
         const email = localStorage.getItem('email');
         const phone = localStorage.getItem('phone');
-        const pass = localStorage.getItem('pass');
+        
 
         //const passNoMatchDivColor = this.state.passNoMatchDivColor;
 
-        //
+        //If registry works, redirect to content page
         if(this.state.redirectToDashboard === true && this.state.postReqDone === true){
 
-            console.log('This is working');
+         
             return <Redirect to={{
                 pathname: "/dashboard",
                 state: { 
                     user_name: fullName,
                     email: email,
-                    phone: phone,
-                    pass: pass
+                    phone: phone
                 }
-              }} />
+            }} />
 
         }else if(this.state.redirectToDashboard !== true && this.state.postReqDone !== true){
 

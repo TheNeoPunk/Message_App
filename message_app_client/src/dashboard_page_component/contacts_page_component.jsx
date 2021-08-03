@@ -40,7 +40,7 @@ class Contact_Component extends Component {
                     </p>
                     <div class="d-flex">
                       <div className="flex-grow-1">1</div>
-                      <input className="search-bar bg-dark p-4" />
+                      <input className="contacts-search-bar search-bar-uni bg-dark p-4" />
                       <div className="flex-grow-1">1</div>
                     </div>
 

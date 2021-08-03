@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 
 //ICON imports
-import { BsPlusCircle } from "react-icons/bs";
+import { BsGrid1X2Fill, BsPlusCircle } from "react-icons/bs";
 import { BsUpload } from "react-icons/bs";
 import { BsFillGridFill } from "react-icons/bs";
+import { BsPersonPlus } from "react-icons/bs";
+import {BsFillGrid3X2GapFill} from "react-icons/bs";
 
 //Component exports
 import Side_nav from '../global_components/side_navigation';
@@ -31,8 +33,8 @@ class Message_Component extends Component {
       //
       this.state = { 
       
-        message_box_one: [1 , 2 , 3 , 4],
-        message_box_two: [1 , 2 , 3 , 4]
+        message_box_one: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum'],
+        message_box_two: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum']
       
       }
     }
@@ -55,17 +57,18 @@ class Message_Component extends Component {
 
                     {/*---SUB TITLE----*/}
                     <div class="d-flex message-box-title mb-3">
-                      <div class="me-auto ">Flex item</div>
-                      <div class="ms-auto ">Flex item</div>
+                      <div class="me-auto h3 fw-bold p-3">Lorem Ipsum</div>
+                      <div class="flex-grow-1"></div>
+                      <div class="ms-auto p-3"> <BsPersonPlus className="" /> </div>
                     </div>
                   
                     {/*---MESSAGE CATEGORY ITEMS----*/}
                     <div class="d-flex flex-column bd-highlight mb-3">
-                      {this.state.message_box_one.map(m_item => <div class="p-2 bd-highlight message-box-item">{m_item}</div>)}
+                      {this.state.message_box_one.map(m_item => <div class="p-3 bd-highligh fw-bold message-box-item">{m_item}</div>)}
                     </div>
 
                     <div class="d-flex flex-column bd-highlight mb-3">
-                      {this.state.message_box_two.map(m_item => <div class="p-2 bd-highlight message-box-item">{m_item}</div>)}
+                      {this.state.message_box_two.map(m_item => <div class="p-3 bd-highlight fw-bold message-box-item">{m_item}</div>)}
                     </div>
 
                   </div>
@@ -75,7 +78,28 @@ class Message_Component extends Component {
                     
                     {/*---SEARCH BOX----*/}
                     <div class="message-search-box">
-                      Search Bar
+                      <input className="fill-width search-bar-uni message-search-bar bg-dark p-4" />
+                    </div>
+
+                    {/* ------- RESULT ITEMS CONTAINER------- */}
+                    <div className="result-item-container">
+
+                      {/* ------- RESULT ITEMS CONTAINER------- */}
+                      <div className="result-item d-flex">
+
+                        <div className="src-portrait bg-light rounded-circle m-4"></div>
+                        <div className="result-item-text no-padding">
+                          <p className="h5">Lorem Ipsum</p>
+                          <p>Lorem Ipsum</p>
+                        </div>
+                        <div className="flex-grow-1"></div>
+                        <div className="m-4 ms-auto">
+                          <BsFillGrid3X2GapFill />
+                          <p>Lorem</p>
+                        </div>
+
+                      </div>
+
                     </div>
                     
                   </div>
@@ -83,8 +107,8 @@ class Message_Component extends Component {
                   {/*---MESSAGE CHAT---- */}
                   <div className="fill-height message-box no-padding align-items-start d-flex flex-grow-1 flex-column">
                     {/*---HEADER BAR----*/}
-                    <div class="mb-auto message-chat-header border-bottom border-primary p-4 fill-width">
-                      Header
+                    <div class="mb-auto message-chat-header fw-bold border-bottom border-primary p-4 fill-width">
+                      Lorem ipsum dolor...
                     </div>
                     
                     <div className="message-chat-box border-primary p-4 fill-width d-flex ">

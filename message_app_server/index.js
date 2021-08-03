@@ -11,7 +11,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*******',
+    password: 'TheUshanka!2',
     database: 'message_app_db'
 
 });
@@ -71,18 +71,18 @@ app.post('/api/insert', async (req, res) => {
 app.post('/login', async ( req, res) => {
 
     //body parsing user insertted login data
-    const email = req.body.email
-    const password = req.body.password
+    const email = req.body.auth_email;
+    const password = req.body.auth_pass;
 
     //SQL command to select existing queries in DB
-    const sqlLoginSLC = "SELECT * FROM user_info WHERE user_name = ? AND user_pass = ?"
+    const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent FROM message_app_db.user_info WHERE user_email = ? AND user_pass = ?"
 
     //Query into table
     db.query(
 
         sqlLoginSLC,
         [email, password], //Grab body parser values
-        (err, result) => { //Feedback after process
+        (err, result, fields) => { //Feedback after process
 
             //If there are errors
             if(err){
@@ -93,10 +93,12 @@ app.post('/login', async ( req, res) => {
             //Check for results length from SQL command
             if(result.length > 0){
                 //Send result
-                res.send(result)
+                res.send(result);
+                console.log(result);
+
             }else{
                 //Send feedback otherwise
-                res.send({message: "No user found"});
+                res.send({message: "Incorrect credentials"});
             }
 
         }

@@ -1,10 +1,7 @@
-.search-bar{
+.contacts-search-bar{
 
     width: 30em;
-    height: 3em;
-    border-radius: 2em;
-    border: none;
-    color: white;
+    
 }
 
 .contact-item{
