@@ -24,20 +24,33 @@ class Main_Component extends Component {
       //
       this.state = { 
       
-        dashboard_data_instances_one: [1 , 2, 3],
-        dashboard_data_instances_two: [4 , 5, 6],
+        dashboard_data_instances_one: ['' , '', ''],
+        dashboard_data_instances_two: ['' , '', ''],
         dashboard_title: null
-      
       }
     }
 
+    //assign sql user data to curr state 
     componentDidMount(){
 
+      const authUserData = this.state;
+      
       this.setState({
 
-        dashboard_title: localStorage.getItem('fullName')
+        dashboard_title: localStorage.getItem('fullName'),
+        /*
+        dashboard_incoming_req: '0',
+        dashboard_mssg_sent: localStorage.getItem('auth_mssg_sent'), 
+        dashboard_friend_num: localStorage.getItem('auth_number_of_friends'),
+        dashboard_total_activ: localStorage.getItem('auth_total_activity'),
+        dashboard_recent_active: localStorage.getItem('auth_activity'),
+        dashboard_contact_num: localStorage.getItem('auth_num_of_contacts'),*/
+        dashboard_data_instances_one: [localStorage.getItem('auth_mssg_sent'), localStorage.getItem('auth_num_of_contacts'), localStorage.getItem('auth_number_of_friends')],
+        dashboard_data_instances_two: [localStorage.getItem('auth_total_activity'), localStorage.getItem('auth_activity'), localStorage.getItem('auth_num_of_contacts')]
 
       });
+
+      console.log(authUserData.dashboard_incoming_req);
 
     }
 
@@ -45,7 +58,6 @@ class Main_Component extends Component {
 
       const dashboard_title = this.state.dashboard_title;
 
-      console.log("this is homepage", dashboard_title);
       return ( 
           
         <div className="fill-window container-fluid">
@@ -82,7 +94,13 @@ class Main_Component extends Component {
                     {/* Rendered dashboard data */}
                     {this.state.dashboard_data_instances_one.map(
 
-                      data_item => <div className="col"><div className="rounded-circle bg-light dashboard-data-container shadow mx-auto"></div></div>
+                      data_item => <div className="col">
+                        <div className="rounded-circle bg-light dashboard-data-container shadow mx-auto d-flex">
+                          <div className="flex-grow-1"></div>
+                          <p className="align-self-center fw-bold h2">{data_item}</p>
+                          <div className="flex-grow-1"></div>
+                        </div>
+                      </div>
 
                     )}
                   </div>
@@ -103,7 +121,13 @@ class Main_Component extends Component {
                      {/* Rendered dashboard data */}
                      {this.state.dashboard_data_instances_two.map(
 
-                        data_item => <div className="col"><div className="rounded-circle bg-light shadow dashboard-data-container mx-auto align-middle"></div></div>
+                        data_item => <div className="col">
+                          <div className="rounded-circle bg-light dashboard-data-container shadow mx-auto d-flex">
+                            <div className="flex-grow-1"></div>
+                            <p className="align-self-center fw-bold h2">{data_item}</p>
+                            <div className="flex-grow-1"></div>
+                          </div>
+                        </div>
 
                       )}
                   </div>

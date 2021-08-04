@@ -62,13 +62,18 @@ body{ font-family: 'Montserrat', sans-serif; }
 .filler-m div{height: 140px;}
 .filler-l div{height: 210px;}
 
-input[type="text"], input[type="email"]
+input[type="text"], input[type="email"], textarea
 {
   background: transparent;
   border: none;
   border-bottom: 1px solid #707070;
   width: 100%;
   color: #707070;
+}
+
+textarea:focus{
+  overflow: hidden;
+  outline:none;
 }
 
 
@@ -107,3 +112,6 @@ ul{
 
 }
 
+.no-margin{
+  margin: 0 !important;
+}

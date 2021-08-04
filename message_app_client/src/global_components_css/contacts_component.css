@@ -6,14 +6,24 @@
 
 .contact-item{
 
-    height: 9em;
+    height: 11em;
     width: 70em;
+    border-radius: 1em;
 
 }
 
+.contact-title{}
+
 .profile-icon{
 
-    width: 6em;
-    height: 6em;
+    width: 5em;
+    height: 5em;
+    border-radius: 1em;
 
+}
+
+.status-icon{
+    width: 1em;
+    height: 1em;
+    background-color: green;
 }

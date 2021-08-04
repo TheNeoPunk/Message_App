@@ -24,6 +24,14 @@
 
 }
 
+.mssg-inbox-data-item{
+    margin-right: 1em;
+}
+.mssg-hdr-icons div{
+
+    padding-right: 1em;
+}
+
 .src-portrait{
 
     width: 60px;
@@ -108,7 +116,7 @@
 
 .message-profile{
     background-color: #FFFFFF;
-    width: 250px;
+    width: 280px;
 }
 
 .row div{

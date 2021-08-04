@@ -7,6 +7,8 @@ import { BsUpload } from "react-icons/bs";
 import { BsFillGridFill } from "react-icons/bs";
 import { BsPersonPlus } from "react-icons/bs";
 import {BsFillGrid3X2GapFill} from "react-icons/bs";
+import {BsFillCameraVideoFill} from "react-icons/bs";
+import {BsPhone} from "react-icons/bs";
 
 //Component exports
 import Side_nav from '../global_components/side_navigation';
@@ -63,12 +65,22 @@ class Message_Component extends Component {
                     </div>
                   
                     {/*---MESSAGE CATEGORY ITEMS----*/}
-                    <div class="d-flex flex-column bd-highlight mb-3">
-                      {this.state.message_box_one.map(m_item => <div class="p-3 bd-highligh fw-bold message-box-item">{m_item}</div>)}
+                    <div className="d-flex flex-column bd-highlight mb-3">
+                      {this.state.message_box_one.map(m_item => 
+                      <div className="p-2 bd-highlight fw-bold message-box-item d-flex">
+                        <div className="">{m_item}</div>
+                        <div className="flex-grow-1"></div>
+                        <div className="mssg-inbox-data-item">0</div>
+                      </div>)}
                     </div>
 
                     <div class="d-flex flex-column bd-highlight mb-3">
-                      {this.state.message_box_two.map(m_item => <div class="p-3 bd-highlight fw-bold message-box-item">{m_item}</div>)}
+                      {this.state.message_box_two.map(m_item => 
+                        <div class="p-2 bd-highlight fw-bold message-box-item d-flex">
+                          <div>{m_item}</div>
+                          <div className="flex-grow-1"></div>
+                          <div className="mssg-inbox-data-item">0</div>
+                        </div>)}
                     </div>
 
                   </div>
@@ -78,7 +90,7 @@ class Message_Component extends Component {
                     
                     {/*---SEARCH BOX----*/}
                     <div class="message-search-box">
-                      <input className="fill-width search-bar-uni message-search-bar bg-dark p-4" />
+                      <input className="fill-width search-bar-uni message-search-bar bg-dark p-4" placeholder="Lorem Ipsum..." />
                     </div>
 
                     {/* ------- RESULT ITEMS CONTAINER------- */}
@@ -108,9 +120,11 @@ class Message_Component extends Component {
                   <div className="fill-height message-box no-padding align-items-start d-flex flex-grow-1 flex-column">
                     {/*---HEADER BAR----*/}
                     <div class="mb-auto message-chat-header fw-bold border-bottom border-primary p-4 fill-width d-flex">
-                      <div><p>Lorem ipsum dolor...</p></div>
-                      <div><p>Lorem ipsum dolor...</p></div>
-                      <div><p>Lorem ipsum dolor...</p></div>
+                      <div className="flex-grow-1 no-padding"><p>Lorem ipsum dolor...</p></div>
+                      <div className="d-flex ms-auto mssg-hdr-icons">
+                        <div className=""><BsFillCameraVideoFill /></div>
+                        <div className=""><BsPhone /></div>
+                      </div>
                     </div>
                     
                     <div className="message-chat-box border-primary p-4 fill-width d-flex ">
@@ -158,10 +172,11 @@ class Message_Component extends Component {
                         <div className="p-2 flex-grow-1"></div>
                         <div className="p-2">
                           <div className="mssg-portrait bg-secondary"></div>
+                         
                           <div className="text-center">
                             
-                            <p>Lorem Ipsum</p>
-                            <p>Lorem Ipsum</p>
+                            <p className="no-margin h4">Lorem Ipsum</p>
+                            <p className="no-margin">Lorem Ipsum</p>
                             
                           </div>
 
@@ -182,6 +197,7 @@ class Message_Component extends Component {
                           <p>Lorem Ipsum</p>
                           <p>Lorem Ipsum</p>
                         </div>
+                        <div className="flex-grow-1"></div>
                         <div className="p-2 bd-highlight">
                           
                           <p>Lorem Ipsum</p>

@@ -77,8 +77,10 @@ class Login_Form extends Component {
                 localStorage.setItem('auth_activity', response.data[0].recent_activity);
                 localStorage.setItem('auth_total_activity', response.data[0].total_activity);
                 localStorage.setItem('auth_number_of_friends', response.data[0].number_of_friends);
-                localStorage.setItem('auth_short_desc', response.data[0].short_desc);
+                localStorage.setItem('auth_num_of_contacts', response.data[0].num_of_contacts);
                 localStorage.setItem('auth_mssg_sent', response.data[0].messages_sent);
+
+                console.log(localStorage.getItem('auth_req'))
 
                 //Authorize a redirect
                 this.setState({
@@ -133,7 +135,7 @@ class Login_Form extends Component {
         const un_auth_user_mssg = this.state.un_auth_user_mssg;
 
         const auth_email = localStorage.getItem('auth_email');
-        const auth_name = localStorage.getItem('email');
+        const auth_name = localStorage.getItem('fullName');
         const auth_phone = localStorage.getItem('auth_phone');
         const auth_req = localStorage.getItem('auth_req');
         const auth_activity = localStorage.getItem('auth_activity');

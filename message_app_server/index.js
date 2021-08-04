@@ -11,7 +11,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '******',
+    password: 'TheUshanka!2',
     database: 'message_app_db'
 
 });
@@ -75,7 +75,7 @@ app.post('/login', async ( req, res) => {
     const password = req.body.auth_pass;
 
     //SQL command to select existing queries in DB
-    const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent FROM message_app_db.user_info WHERE user_email = ? AND user_pass = ?"
+    const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ? AND user_pass = ?"
 
     //Query into table
     db.query(

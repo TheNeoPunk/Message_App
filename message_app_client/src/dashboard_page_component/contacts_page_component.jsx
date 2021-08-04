@@ -32,20 +32,20 @@ class Contact_Component extends Component {
                   LOGO
                 </p>*/}
                 <div class="d-flex">
-                  <div className="flex-grow-1">1</div>
+                  <div className="flex-grow-1"></div>
                   <div className="flex-grow-1 text-center">
                     
                     <p className="logo fw-bold text-center fs-1">
                       CONTACTS
                     </p>
                     <div class="d-flex">
-                      <div className="flex-grow-1">1</div>
-                      <input className="contacts-search-bar search-bar-uni bg-dark p-4" />
-                      <div className="flex-grow-1">1</div>
+                      <div className="flex-grow-1"></div>
+                      <input className="contacts-search-bar search-bar-uni bg-dark p-4" placeholder="Lorem Ipsum..." />
+                      <div className="flex-grow-1"></div>
                     </div>
 
                   </div>
-                  <div className="flex-grow-1">3</div>
+                  <div className="flex-grow-1"></div>
                 </div>
                 
                 {/* FILLER CONTAINER */}
@@ -57,21 +57,28 @@ class Contact_Component extends Component {
                    </div>
                  </div>
                 </div>
-
+                
+                {/* --------CONTACT RESULTS--------- */}
                 <div className="d-flex">
-                  <div className="flex-shrink-1">1</div>
-                  <div className="flex-grow-1 text-center">
+                  <div className="flex-shrink-1"></div>
+                  <div className="flex-grow-1">
                     <div className="d-flex justify-content-center">
                       <div className="contact-item bg-light shadow-sm d-flex">
 
-                        <div className="profile-icon bg-secondary m-4"></div>
-                        <div className="profile-icon bg-secondary m-4"></div>
-                        <div className="ms-auto profile-icon bg-secondary m-4"></div>
+                        
+                          <div className="profile-icon bg-secondary m-5"></div>
+                         
+                          <div className="align-self-center">
+                            <p className="h4">Lorem Ipsum</p>
+                            <p>Lorem Ipsum</p>
+                          </div>
+                         
+                          <div className="ms-auto status-icon m-5 rounded-circle align-self-center"></div>
 
                       </div>
                     </div>
                   </div>
-                  <div className="flex-shrink-1">3</div>
+                  <div className="flex-shrink-1"></div>
                 </div>
                
 

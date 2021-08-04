@@ -34,12 +34,12 @@ class Setting_Component extends Component {
               </nav>
               <div className="col-11 no-match-pass-div rounded-3">
                 <p className="logo fw-bold text-center fs-1">
-                  LOGO
+                  Settings
                 </p>
                 <div class="container ">
                   <div class="row">
                     <div class="col-3 setting-nav">
-                      <div className="setting-container bg-light shadow p-5">
+                      <div className="setting-container bg-light shadow p-4">
 
                         <div>Lorem Ipsum</div>
                         <div>Lorem Ipsum</div>
@@ -82,8 +82,8 @@ class Setting_Component extends Component {
 
                               <div className="d-flex m-2">
 
-                                <input className="m-2 p-2" type="text" />
-                                <input className="m-2 p-2" type="text" />
+                                <input className="m-2 p-2" type="text" placeholder="EMAIL" />
+                                <input className="m-2 p-2" type="text" placeholder="PHONE" />
 
                               </div>
 
@@ -99,8 +99,26 @@ class Setting_Component extends Component {
 
                               <div className="d-flex m-2">
 
-                                <input className="m-2 p-2" type="text" />
-                                <input className="m-2 p-2" type="text" />
+                                <input className="m-2 p-2" type="text" placeholder="FULL NAME" />
+                                <input className="m-2 p-2" type="text" placeholder="PASSWORD"/>
+
+                              </div>
+
+                              {/* FILLER CONTAINER */}
+                              <div className="container">
+                                    <div className="row filler-xs">
+                                      <div className="col">
+                                      </div>
+                                      <div className="col">
+                                      </div>
+                                    </div>
+                              </div>
+
+                              <div className="d-flex m-2">
+
+                              <textarea className="fill-width" maxlength="200">
+                                At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+                              </textarea>
 
                               </div>
 

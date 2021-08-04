@@ -5,6 +5,19 @@
     border-radius: 40px;
 }
 
+.setting-container div{
+
+    padding: .5em;
+    font-size: 1.2em;
+}
+
+.setting-container div:hover{
+
+    font-weight: bold;
+    color: #3966C1;
+
+}
+
 .acc-portrait{
 
     width: 150px;
