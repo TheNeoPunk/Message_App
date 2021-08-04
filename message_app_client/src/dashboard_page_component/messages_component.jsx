@@ -84,7 +84,7 @@ class Message_Component extends Component {
                     {/* ------- RESULT ITEMS CONTAINER------- */}
                     <div className="result-item-container">
 
-                      {/* ------- RESULT ITEMS CONTAINER------- */}
+                      {/* ------- RESULT ITEMS------- */}
                       <div className="result-item d-flex">
 
                         <div className="src-portrait bg-light rounded-circle m-4"></div>
@@ -107,8 +107,10 @@ class Message_Component extends Component {
                   {/*---MESSAGE CHAT---- */}
                   <div className="fill-height message-box no-padding align-items-start d-flex flex-grow-1 flex-column">
                     {/*---HEADER BAR----*/}
-                    <div class="mb-auto message-chat-header fw-bold border-bottom border-primary p-4 fill-width">
-                      Lorem ipsum dolor...
+                    <div class="mb-auto message-chat-header fw-bold border-bottom border-primary p-4 fill-width d-flex">
+                      <div><p>Lorem ipsum dolor...</p></div>
+                      <div><p>Lorem ipsum dolor...</p></div>
+                      <div><p>Lorem ipsum dolor...</p></div>
                     </div>
                     
                     <div className="message-chat-box border-primary p-4 fill-width d-flex ">

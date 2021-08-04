@@ -8,7 +8,7 @@
 .message-search-container{
 
     background-color: #394969;
-    width: 300px;
+    width: 400px;
 
 }
 .message-search-box{
@@ -19,18 +19,23 @@
 
 .message-search-bar{
 
-
+    
   
 
 }
 
 .src-portrait{
 
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
 
 }
 
+.result-item:hover{
+
+    background-color: #1C2537;
+
+}
 .result-item-container{
 
     color: white;
@@ -39,6 +44,12 @@
 
 .result-item-text p{
     margin: 0 !important;
+}
+
+.result-item-text{
+
+    margin-top: 1.5em;
+
 }
 /***********/
 
