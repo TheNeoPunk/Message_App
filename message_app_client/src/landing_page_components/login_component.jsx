@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Switch, Route, Redirect} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
-
+import { AuthObj } from '../App';
 
 //CSS Imports
 import '../landing_page_css/form_component.css';
@@ -17,6 +17,9 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 //Component imports
 import Intro from './intro_component';
+
+//Authorizes to login
+window.protectAuth = false;
 
 //Side_Div component of landing page
 class Login_Form extends Component {
@@ -43,7 +46,7 @@ class Login_Form extends Component {
 
         const auth_Data = this.state;
         //console.log(auth_Data.auth_email, auth_Data.auth_pass);
-
+        
         //Send input data to login path in backend server
         Axios.post("http://localhost:3001/login", {
 
@@ -80,8 +83,6 @@ class Login_Form extends Component {
                 localStorage.setItem('auth_num_of_contacts', response.data[0].num_of_contacts);
                 localStorage.setItem('auth_mssg_sent', response.data[0].messages_sent);
 
-                console.log(localStorage.getItem('auth_req'))
-
                 //Authorize a redirect
                 this.setState({
 
@@ -89,9 +90,14 @@ class Login_Form extends Component {
 
                 });
 
-            }
+                //Enable authentication
+                
+                window.protectAuth=true;
+                console.log(window.protectAuth)
+                console.log(response);
 
-            console.log(response);
+            }
+           
 
         });
 
@@ -148,7 +154,7 @@ class Login_Form extends Component {
         if(this.state.auth_to_redir){
 
             //Redirect with existing user data
-            console.log(this.state.auth_to_redir);
+            //console.log(this.state.auth_to_redir);
             return <Redirect to={{
 
                 pathname: "/dashboard",
@@ -165,6 +171,7 @@ class Login_Form extends Component {
                     mssg_sent: auth_mssg_sent 
 
                 }
+                
 
             }} />
 

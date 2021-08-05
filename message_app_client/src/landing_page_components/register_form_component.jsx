@@ -233,11 +233,11 @@ class Register_Form extends Component {
 
         }else if(this.state.redirectToDashboard !== true && this.state.postReqDone !== true){
 
-            console.log('This is not working');
+           //console.log('This is not working');
 
         }else{
         
-            console.log('Nothing is working');
+           // console.log('Nothing is working');
         }
 
 

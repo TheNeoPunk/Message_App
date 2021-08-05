@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';  //import for page navigation
-
-
+import ProtectRoute from './dashboard_page_component/ProtectRoute';
+import { useState } from 'react';
 
 //Component imports
 import Intro from './landing_page_components/intro_component';
@@ -23,8 +23,24 @@ import '../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 import React from 'react';
 
+
 //Main App Component
 function App() {
+  
+  window.Auth = false;
+
+  if(window.protectAuth){
+
+    console.log(window.protectAuth);
+    window.Auth = window.protectAuth;
+
+  }else if(!window.protectAuth){
+    
+    console.log('Not working');
+    window.Auth = window.protectAuth;
+
+  }
+
    /* Renders the main app component */
   return ( 
 
@@ -35,7 +51,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Register_Form} />
         <Route path="/login" component={Login_Component} />
-        <Route path="/dashboard" component={Main_Component} />
+        <ProtectRoute path="/dashboard" component={Main_Component} isAuth={window.Auth}/>
         <Route path="/messages" component={Message_Component} />
         <Route path="/contacts" component={Contact_Component} />
         <Route path="/settings" component={Setting_Component} />
@@ -53,3 +69,4 @@ function App() {
 }
 
 export default App;
+

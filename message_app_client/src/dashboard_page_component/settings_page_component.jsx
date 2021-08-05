@@ -27,11 +27,9 @@ class Setting_Component extends Component {
 
         <div className="fill-window container-fluid">
             <div className="row fill-height no-padding">
-              <nav className="side-nav-column no-padding">
-                
-                <Side_nav />
+              
+              <Side_nav />
              
-              </nav>
               <div className="col-11 no-match-pass-div rounded-3">
                 <p className="logo fw-bold text-center fs-1">
                   Settings

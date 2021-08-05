@@ -22,11 +22,9 @@ class Contact_Component extends Component {
 
         <div className="fill-window container-fluid">
             <div className="row fill-height no-padding">
-              <nav className="side-nav-column no-padding">
-                
-                <Side_nav />
-             
-              </nav>
+              
+              <Side_nav />
+            
               <div className="col">
                 {/*<p className="logo fw-bold text-center fs-1">
                   LOGO

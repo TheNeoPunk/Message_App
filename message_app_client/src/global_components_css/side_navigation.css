@@ -19,6 +19,13 @@
 
 }
 
+.logout-button-container{
+    
+}
+.logout-button-container:hover{
+    background-color: #263B66;
+}
+
 .nav-icon-active li{
 
     background-color: #263B66;

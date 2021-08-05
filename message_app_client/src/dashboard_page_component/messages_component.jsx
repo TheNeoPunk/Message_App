@@ -47,9 +47,8 @@ class Message_Component extends Component {
           <div className="fill-window container-fluid">
               <div className="row fill-height no-padding">
                 {/*---SIDE NAV---- */}
-                <nav className="side-nav-column no-padding">
-                  <Side_nav />
-                </nav>
+      
+                <Side_nav />
 
                 {/*---MESSAGE COMPONENT---- */}
                 <div className="col d-flex no-padding">

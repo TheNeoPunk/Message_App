@@ -16,6 +16,9 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
+//React Icon imports
+import { BsArrowLeft } from "react-icons/bs";
+
 class Main_Component extends Component {
 
     constructor(props){
@@ -63,11 +66,8 @@ class Main_Component extends Component {
         <div className="fill-window container-fluid">
             <div className="row fill-height no-padding">
               {/* Side Navigation after registry or login*/}
-              <nav className="side-nav-column no-padding">
-                
-                <Side_nav />
-
-              </nav>
+                           
+              <Side_nav />
 
               {/* Main Data dashboard */}
               <div className="col-11 no-match-pass-div rounded-3">
