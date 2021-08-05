@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Switch, Route, Redirect} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
-import { AuthObj } from '../App';
+import auth from "../dashboard_page_component/isAuthenticated";
 
 //CSS Imports
 import '../landing_page_css/form_component.css';
@@ -17,9 +17,6 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 //Component imports
 import Intro from './intro_component';
-
-//Authorizes to login
-window.protectAuth = false;
 
 //Side_Div component of landing page
 class Login_Form extends Component {
@@ -43,7 +40,8 @@ class Login_Form extends Component {
 
     //Handle form submission to backend server
     handleSubmit = (event) => {
-
+        auth.authenticated = true;
+        console.log(auth.authenticated)
         const auth_Data = this.state;
         //console.log(auth_Data.auth_email, auth_Data.auth_pass);
         
@@ -92,8 +90,6 @@ class Login_Form extends Component {
 
                 //Enable authentication
                 
-                window.protectAuth=true;
-                console.log(window.protectAuth)
                 console.log(response);
 
             }
@@ -132,10 +128,12 @@ class Login_Form extends Component {
 
     render() { 
 
+        
         /*
         const auth_email = this.state.auth_email;
         const auth_pass = this.state.auth_pass;
         */
+        
 
         //Render unauthorized message
         const un_auth_user_mssg = this.state.un_auth_user_mssg;
@@ -178,7 +176,7 @@ class Login_Form extends Component {
         }
 
         return ( 
-            
+
             <div className="fill-window container-fluid bg-light">
                 {/* Main App Container */}
 
@@ -301,7 +299,9 @@ class Login_Form extends Component {
 
                                                     <button 
                                                         className="rounded-pill fs-3 fw-bold "
-                                                        onClick={this.handleSubmit}
+                                                        onClick={
+                                                            this.handleSubmit
+                                                        }
                                                     >
                                                         Login
                                                     </button>
@@ -338,5 +338,5 @@ class Login_Form extends Component {
         );
     }
 }
- 
+
 export default Login_Form;

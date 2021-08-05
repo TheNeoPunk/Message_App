@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import ProtectRoute from './dashboard_page_component/ProtectRoute';
 import { useState } from 'react';
 
+
 //Component imports
 import Intro from './landing_page_components/intro_component';
 import Register_Form from './landing_page_components/register_form_component';
@@ -23,27 +24,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 import React from 'react';
 
-
 //Main App Component
 function App() {
   
-  window.Auth = false;
-
-  if(window.protectAuth){
-
-    console.log(window.protectAuth);
-    window.Auth = window.protectAuth;
-
-  }else if(!window.protectAuth){
-    
-    console.log('Not working');
-    window.Auth = window.protectAuth;
-
-  }
-
+  let Auth = false;
    /* Renders the main app component */
+  
   return ( 
-
+    
     <React.Fragment>
 
      <Router>
@@ -51,10 +39,10 @@ function App() {
       <Switch>
         <Route path="/" exact component={Register_Form} />
         <Route path="/login" component={Login_Component} />
-        <ProtectRoute path="/dashboard" component={Main_Component} isAuth={window.Auth}/>
-        <Route path="/messages" component={Message_Component} />
-        <Route path="/contacts" component={Contact_Component} />
-        <Route path="/settings" component={Setting_Component} />
+        <ProtectRoute path="/dashboard" component={Main_Component}/>
+        <ProtectRoute path="/messages" component={Message_Component} />
+        <ProtectRoute path="/contacts" component={Contact_Component} />
+        <ProtectRoute path="/settings" component={Setting_Component} />
 
         {/*<Route path="/messages" component={Dashboard_Component} />
         <Route path="/contacts" component={Dashboard_Component} />

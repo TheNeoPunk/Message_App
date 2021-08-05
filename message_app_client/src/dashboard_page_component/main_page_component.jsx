@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 
+
 //Component exports
 import Side_nav from '../global_components/side_navigation';
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import auth from "../dashboard_page_component/isAuthenticated";
 
 //Import source CSS
 import '../global_components_css/side_navigation.css';
@@ -36,6 +37,8 @@ class Side_nav extends Component {
 
     logout = () => {
 
+        auth.authenticated = false;
+
         //Authorize redirect
         this.setState({
 
@@ -44,8 +47,8 @@ class Side_nav extends Component {
         });
 
         //Disable login auth
-        window.protectAuth = false;
-
+        
+        
         //Remove localstorage and clear data for next 
         localStorage.clear()
 
