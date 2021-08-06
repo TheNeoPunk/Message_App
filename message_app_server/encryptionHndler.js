@@ -29,18 +29,18 @@ const encrypt = (password) => {
 }
 
 //Decrypts incoming password
-const decrypt = (encryption) => {
+const decrypt = (encryptedPass, iv) => {
 
     //Assign decipher method as obj
     const decipher = crypto.createDecipheriv( 
         'aes-256-ctr', 
         Buffer.from(secret), 
-        Buffer.from(encryption.iv, "hex")
+        Buffer.from(iv, "hex")
     );
 
     //Assign decrypted password to variable
     const decryptedPassword = Buffer.concat([
-        decipher.update(Buffer.from(encryption.password, 'hex')), 
+        decipher.update(Buffer.from(encryptedPass, 'hex')), 
         decipher.final()
     ]);
 

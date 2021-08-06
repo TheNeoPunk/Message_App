@@ -33,6 +33,8 @@ app.post('/api/insert', async (req, res) => {
     const user_phone = req.body.user_phone;
     const user_pass = req.body.user_pass;
     const user_confirm = req.body.user_confirm;
+
+    //Encrypt password
     const scramblePassword = encrypt(user_pass);
 
     //More debugging on registry
@@ -80,13 +82,13 @@ app.post('/login', async ( req, res) => {
     //const iv = req.body.encryption.iv
 
     //SQL command to select existing queries in DB
-    const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ? AND user_pass = ?"
-
+    const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_pass, iv, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ?";
+    
     //Query into table
     db.query(
 
         sqlLoginSLC,
-        [email, password], //Grab body parser values
+        [email], //Grab body parser values
         (err, result, fields) => { //Feedback after process
 
             //If there are errors
@@ -95,14 +97,27 @@ app.post('/login', async ( req, res) => {
                 res.send(err);
             }
 
-            //Check for results length from SQL command
+            //Check for results from SQL command
             if(result.length > 0){
-                //Send result
-                res.send(result);
 
+                //Log decryption
+                const decipheredPass = decrypt(result[0].user_pass, result[0].iv);
+                if(password === decipheredPass){
+
+                    console.log(decrypt(result[0].user_pass, result[0].iv));
+
+                    //Send result
+                    res.send(result);
+                    
+                }else{
+
+                    //Send feedback otherwise
+                    res.send({message: "Incorrect credentials"});
+
+                }
                 //Send decrypted password
                 //res.send(decrypt(password));
-                console.log(result);
+                //console.log(result);
 
             }else{
                 //Send feedback otherwise
