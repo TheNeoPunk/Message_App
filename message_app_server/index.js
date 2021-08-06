@@ -3,6 +3,7 @@ const express = require('express');
 const bodyparser = require('body-parser');   //Parses html body parts into js
 const mysql = require('mysql');
 const cors = require('cors');
+const { encrypt, decrypt } = require('./encryptionHndler');
 
 //Creating objects for use of dependency functions
 const app = express();
@@ -32,6 +33,7 @@ app.post('/api/insert', async (req, res) => {
     const user_phone = req.body.user_phone;
     const user_pass = req.body.user_pass;
     const user_confirm = req.body.user_confirm;
+    const scramblePassword = encrypt(user_pass);
 
     //More debugging on registry
     console.log(user_name);
@@ -57,13 +59,14 @@ app.post('/api/insert', async (req, res) => {
     
     //Creating an SQL command to query into our MySQL pool with dynamic input
     const sqlIns = 
-        "INSERT INTO user_info (user_name, user_email, user_phone, user_pass) VALUES (?,?,?,?);";
-    
+        "INSERT INTO user_info (user_name, user_email, user_phone, user_pass, iv) VALUES (?,?,?,?,?);";
+
     //Query the above SQL command with the specific parameters to gather user data on front end
     db.query(
         sqlIns, 
-        [user_name, user_email, user_phone, user_pass], 
-        (err, result) => {console.log(err)}); 
+        [user_name, user_email, user_phone, scramblePassword.password, scramblePassword.iv], 
+        (err, result) => {console.log(err)
+    }); 
 
 });
 
@@ -73,6 +76,8 @@ app.post('/login', async ( req, res) => {
     //body parsing user insertted login data
     const email = req.body.auth_email;
     const password = req.body.auth_pass;
+    //const encrypt_pass = req.body.encryption.password,
+    //const iv = req.body.encryption.iv
 
     //SQL command to select existing queries in DB
     const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ? AND user_pass = ?"
@@ -94,6 +99,9 @@ app.post('/login', async ( req, res) => {
             if(result.length > 0){
                 //Send result
                 res.send(result);
+
+                //Send decrypted password
+                //res.send(decrypt(password));
                 console.log(result);
 
             }else{

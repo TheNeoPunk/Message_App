@@ -40,11 +40,14 @@ class Login_Form extends Component {
 
     //Handle form submission to backend server
     handleSubmit = (event) => {
+
         auth.authenticated = true;
-        console.log(auth.authenticated)
+        //console.log(auth.authenticated)
         const auth_Data = this.state;
         //console.log(auth_Data.auth_email, auth_Data.auth_pass);
         
+        //********************LOGIN DATA REQUEST********************************* */
+
         //Send input data to login path in backend server
         Axios.post("http://localhost:3001/login", {
 
@@ -97,9 +100,12 @@ class Login_Form extends Component {
 
         });
 
+        //**********************LOGIN DECRYPTION REQUEST******************************* */
+        
         event.preventDefault();
         
     }
+
 
     //Handles email input
     handleEmailAuth = (email) => {

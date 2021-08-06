@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route, Redirect} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
 import { useHistory } from "react-router-dom"; 
+import auth from "../dashboard_page_component/isAuthenticated";
 
 //CSS Imports
 import '../landing_page_css/form_component.css';
@@ -57,6 +58,7 @@ class Register_Form extends Component {
     //Handles all form data and takes in submission event of form
     handleSubmit = (event) => {
 
+        auth.authenticated = true;
         const finalData = this.state; //Assign props of state obj
 
         //Check if password inputs match
