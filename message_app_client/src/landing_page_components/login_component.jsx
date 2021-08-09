@@ -97,7 +97,6 @@ class Login_Form extends Component {
 
             }
            
-
         });
 
         //**********************LOGIN DECRYPTION REQUEST******************************* */

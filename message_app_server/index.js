@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: 'TheUshanka!2',
+    password: '*********',
     database: 'message_app_db'
 
 });
@@ -47,9 +47,9 @@ app.post('/api/insert', async (req, res) => {
     //Pass confirmation debugging
     if(user_pass == user_confirm){
 
-        console.log(user_pass)
-        console.log(user_confirm)
-        console.log('match')
+        console.log(user_pass);
+        console.log(user_confirm);
+        console.log('match');
 
     }else if(user_pass != user_confirm){
 
