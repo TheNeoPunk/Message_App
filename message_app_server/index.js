@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*********',
+    password: '*************',
     database: 'message_app_db'
 
 });
@@ -127,6 +127,18 @@ app.post('/login', async ( req, res) => {
         }
 
     );
+
+});
+
+app.post('/sendMessage', async (req, res) => {
+
+    const user_a_mssg = req.body.auth_message;
+    const user_a_name = req.body.auth_message_user;
+
+    //console.log(user_a_mssg);
+    //console.log(user_a_name);
+
+    res.send({message: user_a_mssg, name: user_a_name});
 
 });
 

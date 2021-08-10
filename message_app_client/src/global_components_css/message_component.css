@@ -19,8 +19,33 @@
 
 .message-search-bar{
 
-    
+
   
+
+}
+
+.message-item-box{
+
+   
+
+}
+
+.message-item-box div{
+
+    padding: 1em !important;
+
+}
+
+.message-chat-icon{
+
+    width: 3em;
+    height: 3em;
+
+}
+
+.message-chat-div{
+
+    background-color: #3966C1;
 
 }
 

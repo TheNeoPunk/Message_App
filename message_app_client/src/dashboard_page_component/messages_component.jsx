@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
+import Axios from 'axios';
+import auth from "./isAuthenticated";
 
 //ICON imports
 import { BsGrid1X2Fill, BsPlusCircle } from "react-icons/bs";
@@ -10,8 +12,9 @@ import {BsFillGrid3X2GapFill} from "react-icons/bs";
 import {BsFillCameraVideoFill} from "react-icons/bs";
 import {BsPhone} from "react-icons/bs";
 
-//Component exports
+//Component imports
 import Side_nav from '../global_components/side_navigation';
+import RenderMessage from './message_render_component';
 
 //CSS imports
 import '../global_components_css/main_page_component.css';
@@ -25,8 +28,6 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
-
-
 class Message_Component extends Component {
 
     constructor(props){
@@ -35,13 +36,80 @@ class Message_Component extends Component {
       //
       this.state = { 
       
-        message_box_one: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum'],
-        message_box_two: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum']
+        message_box_one: [
+        {
+
+          item: 'Lorem Ipsum',
+          mssg_data: localStorage.getItem("auth_req")
+
+        } , 
+        {
+
+          item: 'Lorem Ipsum',
+          mssg_data: localStorage.getItem("auth_mssg_sent")
+
+        },
+        {
+
+          item: 'Lorem Ipsum',
+          mssg_data: localStorage.getItem("")
+
+        },
+        {
+
+          item: 'Lorem Ipsum',
+          mssg_data: localStorage.getItem("")
+
+        }],
+        message_box_two: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum'],
+        sent_data: null
       
       }
     }
+
+    handleMssg = (event) => {
+
+      
+      /* Axios.post('http://localhost:3001/sendMessage',{
+        auth_message: ,
+        auth_message_user:,
+        auth_message_data:
+
+      })*/
+      
+      
+      this.setState({
+
+        sent_data: event.target.value
+
+      });
+
+      
+
+      event.preventDefault();
+
+    }
+
+    handleMssgData = (event) => {
+
+      event.preventDefault();
+     
+      Axios.post('http://localhost:3001/sendMessage', {
+
+        auth_message: this.state.sent_data,
+        auth_message_user: localStorage.getItem("fullName")
+
+      }).then((response => {
+
+        console.log(response.data);
+        //console.log(response.data[0].message, response.data[0].name);
+
+      }));
+
+    }
     
     render() { 
+
       return ( 
           //Main container
           <div className="fill-window container-fluid">
@@ -65,12 +133,14 @@ class Message_Component extends Component {
                   
                     {/*---MESSAGE CATEGORY ITEMS----*/}
                     <div className="d-flex flex-column bd-highlight mb-3">
+
                       {this.state.message_box_one.map(m_item => 
                       <div className="p-2 bd-highlight fw-bold message-box-item d-flex">
-                        <div className="">{m_item}</div>
+                        <div className="">{m_item.item}</div>
                         <div className="flex-grow-1"></div>
-                        <div className="mssg-inbox-data-item">0</div>
+                        <div className="mssg-inbox-data-item">{m_item.mssg_data}</div>
                       </div>)}
+
                     </div>
 
                     <div class="d-flex flex-column bd-highlight mb-3">
@@ -125,29 +195,34 @@ class Message_Component extends Component {
                         <div className=""><BsPhone /></div>
                       </div>
                     </div>
-                    
-                    <div className="message-chat-box border-primary p-4 fill-width d-flex ">
 
-                     
-                      <div className="p-2">
-
-                        <BsPlusCircle/>
-
-                      </div>
-                      <div className="message-box-input fill-width p-2">
+                    {/*------MESSAGE DISPLAY --------*/}
+                    <RenderMessage />
+                      
+                    <form>
+                      {/*------MEDSSAGE INPUT --------*/}
+                      <div className="message-chat-box border-primary p-4 fill-width d-flex">
                         
-                        <input type="text" />
-                      
-                      </div>
-                      
-                      <div className="ms-auto p-2">
+                        <div className="p-2">
 
-                        <BsUpload/>
+                          <BsPlusCircle/>
 
+                        </div>
+                        <div className="message-box-input fill-width p-2">
+
+                          <input className="p-2" type="text" name="message" onChange={this.handleMssg}/>
+                        
+                        </div>
+                        
+                        <div className="ms-auto p-2">
+                          <button onClick={this.handleMssgData} role="button">
+                            <BsUpload/>
+                          </button>
+                        </div>
+                        
+                        
                       </div>
-                     
-                    
-                    </div>
+                    </form>
                 
                   </div>
                   

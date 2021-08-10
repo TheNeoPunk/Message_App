@@ -99,7 +99,7 @@ class Login_Form extends Component {
            
         });
 
-        //**********************LOGIN DECRYPTION REQUEST******************************* */
+        
         
         event.preventDefault();
         
@@ -270,7 +270,9 @@ class Login_Form extends Component {
                                                 <div><input className="p-2" type="text" name="pass" defaultValue="PASSWORD" onChange={this.handlePassAuth}/></div><br/>
                                                
                                             </div>
+                                            
                                             <br/>
+
                                             <div className="container left-20 top-20">
                                                 <div className="row">
                                                     <div className="col-auto">
