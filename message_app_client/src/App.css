@@ -79,13 +79,20 @@ textarea:focus{
 
 input:focus{outline: none; background-color: #e3e3e3;}
 
-button
+.landing_button
 {
 
   border: none;
   background: #3966C1;
   color: white;
   width: 170px;
+
+}
+
+button{
+
+  border: none;
+  background: none;
 
 }
 

@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*************',
+    password: 'TheUshanka!2',
     database: 'message_app_db'
 
 });
@@ -38,11 +38,11 @@ app.post('/api/insert', async (req, res) => {
     const scramblePassword = encrypt(user_pass);
 
     //More debugging on registry
-    console.log(user_name);
+    /*console.log(user_name);
     console.log(user_email);
     console.log(user_phone);
     console.log(user_pass);
-    console.log(user_confirm);
+    console.log(user_confirm);*/
 
     //Pass confirmation debugging
     if(user_pass == user_confirm){
@@ -59,6 +59,7 @@ app.post('/api/insert', async (req, res) => {
 
     }
     
+     /*--------------CREATE USER ITEM----------------- */
     //Creating an SQL command to query into our MySQL pool with dynamic input
     const sqlIns = 
         "INSERT INTO user_info (user_name, user_email, user_phone, user_pass, iv) VALUES (?,?,?,?,?);";
@@ -69,6 +70,16 @@ app.post('/api/insert', async (req, res) => {
         [user_name, user_email, user_phone, scramblePassword.password, scramblePassword.iv], 
         (err, result) => {console.log(err)
     }); 
+
+    /*--------------CREATE USER'S FRIENDS LIST----------------- */
+    const sqlInsFrLst = "INSERT INTO friends_list (friends_list_owner) VALUES (?)"
+    db.query(
+        sqlInsFrLst,
+        [user_name],
+        (err, result) => {
+            console.log(err);
+        }
+    );
 
 });
 
@@ -127,6 +138,28 @@ app.post('/login', async ( req, res) => {
         }
 
     );
+
+});
+
+app.get('/getOnlineUser', async (req, res) => {
+
+    /*--------------GRAB AVAILABLE USERS TO ADD----------------- */
+    const sqlUserReq = "SELECT * FROM message_app_db.user_info";
+
+    db.query(
+
+        sqlUserReq,
+        (err, result) => {
+
+            console.log(err)
+            console.log(result)
+
+            res.send(result)
+
+        }
+
+    );
+    
 
 });
 

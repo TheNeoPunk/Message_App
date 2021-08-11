@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
 import auth from "./isAuthenticated";
+import Modal from "react-modal"
 
 //ICON imports
 import { BsGrid1X2Fill, BsPlusCircle } from "react-icons/bs";
@@ -62,53 +63,41 @@ class Message_Component extends Component {
 
         }],
         message_box_two: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum'],
-        sent_data: null
+        displayModel: false
       
       }
     }
 
-    handleMssg = (event) => {
+   showFriendsDisplay = () => {
 
-      
-      /* Axios.post('http://localhost:3001/sendMessage',{
-        auth_message: ,
-        auth_message_user:,
-        auth_message_data:
+    console.log('working');
 
-      })*/
-      
-      
-      this.setState({
+    Axios.get('http://localhost:3001/getOnlineUser', {
 
-        sent_data: event.target.value
 
-      });
+    }).then((response) => {
 
-      
+      console.log(response);
 
-      event.preventDefault();
+    });
 
-    }
+    this.setState({
+      displayModel: true
+    });
 
-    handleMssgData = (event) => {
+   }
+   
+   leaveFriendsDisplay = () => {
 
-      event.preventDefault();
-     
-      Axios.post('http://localhost:3001/sendMessage', {
+    this.setState({
+      displayModel: false
+    });
 
-        auth_message: this.state.sent_data,
-        auth_message_user: localStorage.getItem("fullName")
-
-      }).then((response => {
-
-        console.log(response.data);
-        //console.log(response.data[0].message, response.data[0].name);
-
-      }));
-
-    }
+   }
     
     render() { 
+
+      const displayModel = this.state.displayModel;
 
       return ( 
           //Main container
@@ -128,7 +117,21 @@ class Message_Component extends Component {
                     <div class="d-flex message-box-title mb-3">
                       <div class="me-auto h3 fw-bold p-3">Lorem Ipsum</div>
                       <div class="flex-grow-1"></div>
-                      <div class="ms-auto p-3"> <BsPersonPlus className="" /> </div>
+                      <div class="ms-auto p-3">
+
+                        <Modal isOpen={displayModel}>
+
+                          <p> Hello World </p>
+
+                          <button onClick={this.leaveFriendsDisplay}>Leave Modal</button>
+                          
+                        </Modal>                     
+
+                        <button className="" style={{color: 'white'}} onClick={this.showFriendsDisplay}>
+                         <BsPersonPlus className="" /> 
+                        </button>
+                                         
+                      </div>
                     </div>
                   
                     {/*---MESSAGE CATEGORY ITEMS----*/}
@@ -186,45 +189,7 @@ class Message_Component extends Component {
                   </div>
                   
                   {/*---MESSAGE CHAT---- */}
-                  <div className="fill-height message-box no-padding align-items-start d-flex flex-grow-1 flex-column">
-                    {/*---HEADER BAR----*/}
-                    <div class="mb-auto message-chat-header fw-bold border-bottom border-primary p-4 fill-width d-flex">
-                      <div className="flex-grow-1 no-padding"><p>Lorem ipsum dolor...</p></div>
-                      <div className="d-flex ms-auto mssg-hdr-icons">
-                        <div className=""><BsFillCameraVideoFill /></div>
-                        <div className=""><BsPhone /></div>
-                      </div>
-                    </div>
-
-                    {/*------MESSAGE DISPLAY --------*/}
-                    <RenderMessage />
-                      
-                    <form>
-                      {/*------MEDSSAGE INPUT --------*/}
-                      <div className="message-chat-box border-primary p-4 fill-width d-flex">
-                        
-                        <div className="p-2">
-
-                          <BsPlusCircle/>
-
-                        </div>
-                        <div className="message-box-input fill-width p-2">
-
-                          <input className="p-2" type="text" name="message" onChange={this.handleMssg}/>
-                        
-                        </div>
-                        
-                        <div className="ms-auto p-2">
-                          <button onClick={this.handleMssgData} role="button">
-                            <BsUpload/>
-                          </button>
-                        </div>
-                        
-                        
-                      </div>
-                    </form>
-                
-                  </div>
+                  <RenderMessage />
                   
                   {/*---MESSAGE RECEIVER PROFILE---- */}
                   <div className="fill-height message-profile no-padding">

@@ -366,7 +366,7 @@ class Register_Form extends Component {
                                                   </div>
                                                   <div className="col text-center">
                                                  
-                                                        <button type="submit" className="rounded-pill fs-3 fw-bold" onClick={this.redirectToDashboard}>
+                                                        <button type="submit" className="landing_button rounded-pill fs-3 fw-bold" onClick={this.redirectToDashboard}>
                                                             {/*<Link
                                                                 style={{textDecoration: 'none', color: 'white'}} 
                                                             to='/confirmation'> */}   

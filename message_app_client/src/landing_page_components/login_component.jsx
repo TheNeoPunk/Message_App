@@ -305,7 +305,7 @@ class Login_Form extends Component {
                                                   <div className="col text-center">
 
                                                     <button 
-                                                        className="rounded-pill fs-3 fw-bold "
+                                                        className="rounded-pill fs-3 fw-bold landing_button"
                                                         onClick={
                                                             this.handleSubmit
                                                         }
