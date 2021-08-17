@@ -75,6 +75,30 @@ class Message_Component extends Component {
       
       }
     }
+  
+  handleFriendRequest = (request_receiver, id) => {
+
+    let auth_User = localStorage.getItem('fullName');
+    let friend_confirm = false; 
+    let reqReceiver = request_receiver;
+
+    console.log('working');
+    console.log(id);
+
+    Axios.post('http://localhost:3001/friendRequest', {
+
+      friend_name: auth_User,
+      friend_confirm: friend_confirm,
+      user_receiver: reqReceiver,
+      user_receiver_id: id
+
+    }).then((response) => {
+
+      console.log(response);
+
+    }); 
+
+  }
 
   /*----------------SHOW AVAILABLE USERS ON POP UP------------------- */
    showFriendsDisplay = () => {
@@ -99,7 +123,6 @@ class Message_Component extends Component {
 
       });
 
-      
       console.log(this.state.available_users);
       console.log(this.state.available_users[0].user_name);
 
@@ -157,7 +180,7 @@ class Message_Component extends Component {
                               <div className="fill-width user-item-bar d-flex mb-3"> 
                                 <div><p className="h4 fw-bold">{user_item.user_name}</p></div>
                                 <div className="flex-grow-1"></div>
-                                <div className="ms-auto"><BsFillPersonPlusFill /></div>
+                                <div className="ms-auto"> <button onClick={() => this.handleFriendRequest(user_item.user_name, user_item.id)}><BsFillPersonPlusFill /></button></div>
                               </div>
                           
                           )}

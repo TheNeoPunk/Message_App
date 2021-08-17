@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: 'TheUshanka!2',
+    password: '**********',
     database: 'message_app_db'
 
 });
@@ -70,16 +70,6 @@ app.post('/api/insert', async (req, res) => {
         [user_name, user_email, user_phone, scramblePassword.password, scramblePassword.iv], 
         (err, result) => {console.log(err)
     }); 
-
-    /*--------------CREATE USER'S FRIENDS LIST----------------- */
-    const sqlInsFrLst = "INSERT INTO friends_list (friends_list_owner) VALUES (?)"
-    db.query(
-        sqlInsFrLst,
-        [user_name],
-        (err, result) => {
-            console.log(err);
-        }
-    );
 
 });
 
@@ -160,6 +150,35 @@ app.get('/getOnlineUser', async (req, res) => {
 
     );
     
+
+});
+
+app.post('/friendRequest', async (req, res) => {
+
+    const sent_user = req.body.friend_name;
+    //const user_receiver = req.body.user_receiver;
+    let sent_friend_confirm = req.body.friend_confirm;
+    const user_receiver_id = req.body.user_receiver_id;
+
+    console.log(sent_user);
+    console.log(sent_friend_confirm);
+    console.log(user_receiver);
+
+    const sqlFriendUpdate = "UPDATE message_app_db.user_info SET friends_list = JSON_SET(friends_list, '$.friend_name', ?, '$.friend_confirm', ?) WHERE id=?"; 
+
+    db.query(
+
+        sqlFriendUpdate,
+        [sent_user, sent_friend_confirm, user_receiver_id],
+        (err, result) => {
+
+            console.log(err);
+            console.log(result);
+
+            res.send(result);
+
+        }
+    )
 
 });
 
