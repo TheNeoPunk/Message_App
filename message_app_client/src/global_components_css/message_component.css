@@ -30,6 +30,20 @@
 
 }
 
+.user-item-bar{
+
+    background-color: darkgray;
+
+}
+
+.user-item-bar div{
+
+}
+
+.message-board-modal{
+    background-color: gray;
+}
+
 .message-item-box div{
 
     padding: 1em !important;

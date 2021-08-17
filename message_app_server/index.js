@@ -151,10 +151,10 @@ app.get('/getOnlineUser', async (req, res) => {
         sqlUserReq,
         (err, result) => {
 
-            console.log(err)
-            console.log(result)
+            console.log(err);
+            console.log(result);
 
-            res.send(result)
+            res.send(result);
 
         }
 

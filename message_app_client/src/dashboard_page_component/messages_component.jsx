@@ -12,6 +12,7 @@ import { BsPersonPlus } from "react-icons/bs";
 import {BsFillGrid3X2GapFill} from "react-icons/bs";
 import {BsFillCameraVideoFill} from "react-icons/bs";
 import {BsPhone} from "react-icons/bs";
+import {BsFillPersonPlusFill} from "react-icons/bs";
 
 //Component imports
 import Side_nav from '../global_components/side_navigation';
@@ -28,7 +29,13 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
+import SearchBar from '../global_components/search_input';
 
+const modalStyles = {
+  content: {
+    backgroundColor: 'gray'
+  },
+};
 class Message_Component extends Component {
 
     constructor(props){
@@ -63,21 +70,38 @@ class Message_Component extends Component {
 
         }],
         message_box_two: ['Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum' , 'Lorem Ipsum'],
-        displayModel: false
+        displayModel: false,
+        available_users: []
       
       }
     }
 
+  /*----------------SHOW AVAILABLE USERS ON POP UP------------------- */
    showFriendsDisplay = () => {
 
-    console.log('working');
+    //console.log('working');
 
-    Axios.get('http://localhost:3001/getOnlineUser', {
+    /*-------------------------SEND GET REQUEST FOR EXISTING DATA--------------------- */
+    Axios.get('http://localhost:3001/getOnlineUser', {}).then((response) => {
 
+      var updated_users = this.state.available_users.concat(response.data);
 
-    }).then((response) => {
+      if(this.state.available_users.length >= response.data.length){
 
-      console.log(response);
+        updated_users.length = response.data.length;
+        console.log(this.state.available_users.length);
+        console.log(response.data.length);
+      }
+
+      this.setState({
+
+        available_users: updated_users
+
+      });
+
+      
+      console.log(this.state.available_users);
+      console.log(this.state.available_users[0].user_name);
 
     });
 
@@ -87,6 +111,7 @@ class Message_Component extends Component {
 
    }
    
+   /*-------------------------EXIT POP UP---------------------------- */
    leaveFriendsDisplay = () => {
 
     this.setState({
@@ -98,6 +123,7 @@ class Message_Component extends Component {
     render() { 
 
       const displayModel = this.state.displayModel;
+      const available_users = this.state.available_users;
 
       return ( 
           //Main container
@@ -119,10 +145,22 @@ class Message_Component extends Component {
                       <div class="flex-grow-1"></div>
                       <div class="ms-auto p-3">
 
-                        <Modal isOpen={displayModel}>
-
-                          <p> Hello World </p>
-
+                        <Modal isOpen={displayModel} portalClassName="message-board-modal" style={modalStyles}>
+                          <div className="d-flex justify-content-center text-center" >
+                            <div>
+                              <div><p className="h2 fw-bold">Modal Title</p></div>
+                              <div style={{backgroundColor: 'green'}} ><SearchBar /></div>
+                            </div>
+                          </div>
+                          {this.state.available_users.map(user_item => 
+                       
+                              <div className="fill-width user-item-bar d-flex mb-3"> 
+                                <div><p className="h4 fw-bold">{user_item.user_name}</p></div>
+                                <div className="flex-grow-1"></div>
+                                <div className="ms-auto"><BsFillPersonPlusFill /></div>
+                              </div>
+                          
+                          )}
                           <button onClick={this.leaveFriendsDisplay}>Leave Modal</button>
                           
                         </Modal>                     
@@ -152,7 +190,7 @@ class Message_Component extends Component {
                           <div>{m_item}</div>
                           <div className="flex-grow-1"></div>
                           <div className="mssg-inbox-data-item">0</div>
-                        </div>)}
+                        </div>)}  
                     </div>
 
                   </div>
@@ -161,9 +199,7 @@ class Message_Component extends Component {
                   <div className="fill-height message-search-container">
                     
                     {/*---SEARCH BOX----*/}
-                    <div class="message-search-box">
-                      <input className="fill-width search-bar-uni message-search-bar bg-dark p-4" placeholder="Lorem Ipsum..." />
-                    </div>
+                    <SearchBar />
 
                     {/* ------- RESULT ITEMS CONTAINER------- */}
                     <div className="result-item-container">

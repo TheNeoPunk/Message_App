@@ -17,6 +17,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 //Component imports
 import Intro from './intro_component';
+import SearchBar from '../global_components/search_input';
 
 //Side_Div component of landing page
 class Login_Form extends Component {
@@ -66,7 +67,6 @@ class Login_Form extends Component {
 
                 });
                 console.log(response);
-
                 
             } //Else if there is a match
             else if(response.data){
