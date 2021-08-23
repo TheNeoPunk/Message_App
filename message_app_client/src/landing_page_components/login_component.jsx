@@ -76,6 +76,10 @@ class Login_Form extends Component {
                 //Assign SQL data request to local session data
                 localStorage.setItem('email', response.data[0].user_email);
                 localStorage.setItem('phone', response.data[0].user_phone);
+                localStorage.setItem('friends_list', response.data[0].friends_list);
+
+                console.log(localStorage.getItem('friends_list'));
+
                 localStorage.setItem('fullName', response.data[0].user_name);
                 localStorage.setItem('auth_req', response.data[0].incoming_friend_req);
                 localStorage.setItem('auth_activity', response.data[0].recent_activity);

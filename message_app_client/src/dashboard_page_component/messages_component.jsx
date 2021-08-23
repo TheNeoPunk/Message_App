@@ -124,7 +124,7 @@ class Message_Component extends Component {
       });
 
       console.log(this.state.available_users);
-      console.log(this.state.available_users[0].user_name);
+      console.log(this.state.available_users[3].id);
 
     });
 

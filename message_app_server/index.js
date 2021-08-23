@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '**********',
+    password: '*********',
     database: 'message_app_db'
 
 });
@@ -33,6 +33,7 @@ app.post('/api/insert', async (req, res) => {
     const user_phone = req.body.user_phone;
     const user_pass = req.body.user_pass;
     const user_confirm = req.body.user_confirm;
+    const friends_list = '[]';
 
     //Encrypt password
     const scramblePassword = encrypt(user_pass);
@@ -62,13 +63,19 @@ app.post('/api/insert', async (req, res) => {
      /*--------------CREATE USER ITEM----------------- */
     //Creating an SQL command to query into our MySQL pool with dynamic input
     const sqlIns = 
-        "INSERT INTO user_info (user_name, user_email, user_phone, user_pass, iv) VALUES (?,?,?,?,?);";
+        "INSERT INTO user_info (user_name, friends_list, user_email, user_phone, user_pass, iv) VALUES (?,?,?,?,?,?);";
 
     //Query the above SQL command with the specific parameters to gather user data on front end
     db.query(
         sqlIns, 
-        [user_name, user_email, user_phone, scramblePassword.password, scramblePassword.iv], 
-        (err, result) => {console.log(err)
+        [user_name, friends_list ,user_email, user_phone, scramblePassword.password, scramblePassword.iv], 
+        (err, result) => {
+            
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
     }); 
 
 });
@@ -83,7 +90,7 @@ app.post('/login', async ( req, res) => {
     //const iv = req.body.encryption.iv
 
     //SQL command to select existing queries in DB
-    const sqlLoginSLC = "SELECT DISTINCT user_email , user_name, user_pass, iv, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ?";
+    const sqlLoginSLC = "SELECT DISTINCT user_email , friends_list, user_name, user_pass, iv, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ?";
     
     //Query into table
     db.query(
@@ -141,8 +148,11 @@ app.get('/getOnlineUser', async (req, res) => {
         sqlUserReq,
         (err, result) => {
 
-            console.log(err);
-            console.log(result);
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
 
             res.send(result);
 
@@ -157,22 +167,25 @@ app.post('/friendRequest', async (req, res) => {
 
     const sent_user = req.body.friend_name;
     //const user_receiver = req.body.user_receiver;
-    let sent_friend_confirm = req.body.friend_confirm;
     const user_receiver_id = req.body.user_receiver_id;
 
     console.log(sent_user);
-    console.log(sent_friend_confirm);
-    console.log(user_receiver);
+    console.log(user_receiver_id);
+    //console.log(user_receiver);
 
-    const sqlFriendUpdate = "UPDATE message_app_db.user_info SET friends_list = JSON_SET(friends_list, '$.friend_name', ?, '$.friend_confirm', ?) WHERE id=?"; 
+    const sqlFriendUpdate = "UPDATE message_app_db.user_info SET friends_list = JSON_ARRAY_APPEND(friends_list, '$', ?) WHERE id=?"; 
 
     db.query(
 
         sqlFriendUpdate,
-        [sent_user, sent_friend_confirm, user_receiver_id],
+        [sent_user, user_receiver_id],
         (err, result) => {
 
-            console.log(err);
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
             console.log(result);
 
             res.send(result);

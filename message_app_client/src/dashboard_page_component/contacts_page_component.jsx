@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
-
+import Axios from 'axios';
 //Component exports
 import Side_nav from '../global_components/side_navigation';
 
@@ -15,7 +15,39 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
 class Contact_Component extends Component {
-    state = {  }
+    
+    constructor(props){
+
+      super(props);
+      //Creates fullName property before component is attached
+      this.state = { 
+
+        user_friends_list: []
+
+      };
+    };
+
+    componentDidMount(){
+
+      var friends_list = this.state.user_friends_list.concat(localStorage.getItem('friends_list'))
+
+      if(this.state.user_friends_list.length >= localStorage.getItem('friends_list').length){
+
+        friends_list.length = localStorage.getItem('friends_list').length;
+
+      }
+
+
+      this.setState({
+
+        user_friends_list: friends_list
+
+      });
+
+      console.log("Mounted");
+
+    }
+
     render() { 
 
       return ( 
