@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
+import AuthChat from './AuthChat';
+
 //Component exports
 import Side_nav from '../global_components/side_navigation';
 
@@ -20,16 +22,18 @@ class Contact_Component extends Component {
 
       super(props);
       //Creates fullName property before component is attached
+      
       this.state = { 
 
         user_friends_list: []
 
       };
+    
     };
 
-    componentDidMount(){
+    componentDidMount = () => {
 
-      var friends_list = this.state.user_friends_list.concat(localStorage.getItem('friends_list'))
+      var friends_list = JSON.parse(localStorage.getItem('friends_list'));
 
       if(this.state.user_friends_list.length >= localStorage.getItem('friends_list').length){
 
@@ -37,14 +41,25 @@ class Contact_Component extends Component {
 
       }
 
+      console.log(friends_list[0]);
 
       this.setState({
 
         user_friends_list: friends_list
 
       });
+        
+    }
 
-      console.log("Mounted");
+    componentDidUpdate = () => {
+
+      console.log(this.state.user_friends_list[0]);
+
+    }
+
+    activateChat = () => {
+
+      AuthChat.authorize_Chat = true;
 
     }
 
@@ -89,7 +104,9 @@ class Contact_Component extends Component {
                 </div>
                 
                 {/* --------CONTACT RESULTS--------- */}
-                <div className="d-flex">
+                {this.state.user_friends_list.map(curr_friends => 
+                  
+                  <div className="d-flex m-3 pe-auto" onClick={this.activateChat()} style={{cursor: "pointer"}}>
                   <div className="flex-shrink-1"></div>
                   <div className="flex-grow-1">
                     <div className="d-flex justify-content-center">
@@ -99,7 +116,7 @@ class Contact_Component extends Component {
                           <div className="profile-icon bg-secondary m-5"></div>
                          
                           <div className="align-self-center">
-                            <p className="h4">Lorem Ipsum</p>
+                            <p className="h4">{curr_friends}</p>
                             <p>Lorem Ipsum</p>
                           </div>
                          
@@ -109,8 +126,9 @@ class Contact_Component extends Component {
                     </div>
                   </div>
                   <div className="flex-shrink-1"></div>
-                </div>
-               
+                  </div>
+                  
+                )}
 
               </div>
             

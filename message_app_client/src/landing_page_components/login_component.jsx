@@ -71,14 +71,13 @@ class Login_Form extends Component {
             } //Else if there is a match
             else if(response.data){
 
-                console.log(response.data);
-
                 //Assign SQL data request to local session data
                 localStorage.setItem('email', response.data[0].user_email);
                 localStorage.setItem('phone', response.data[0].user_phone);
+                
                 localStorage.setItem('friends_list', response.data[0].friends_list);
 
-                console.log(localStorage.getItem('friends_list'));
+                console.log(JSON.parse(localStorage.getItem('friends_list'))[0]);
 
                 localStorage.setItem('fullName', response.data[0].user_name);
                 localStorage.setItem('auth_req', response.data[0].incoming_friend_req);

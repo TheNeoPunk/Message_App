@@ -9,6 +9,8 @@ import { BsPersonPlus } from "react-icons/bs";
 import {BsFillGrid3X2GapFill} from "react-icons/bs";
 import {BsFillCameraVideoFill} from "react-icons/bs";
 import {BsPhone} from "react-icons/bs";
+import AuthChat from './AuthChat';
+
 
 //Component imports
 import MessageHeader from './msg_chat_header';
@@ -21,8 +23,8 @@ class RenderMessage extends Component {
 
         this.state = { 
 
-            chat_enable: false,
-            sent_data: null
+          chat_enable: AuthChat.authorize_Chat,
+          sent_data: null
 
         }
 
@@ -30,7 +32,6 @@ class RenderMessage extends Component {
 
     handleMssg = (event) => {
 
-      
         /* Axios.post('http://localhost:3001/sendMessage',{
           auth_message: ,
           auth_message_user:,

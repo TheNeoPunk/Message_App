@@ -113,8 +113,8 @@ class Message_Component extends Component {
       if(this.state.available_users.length >= response.data.length){
 
         updated_users.length = response.data.length;
-        console.log(this.state.available_users.length);
-        console.log(response.data.length);
+        //console.log(this.state.available_users.length);
+        //console.log(response.data.length);
       }
 
       this.setState({
@@ -146,7 +146,7 @@ class Message_Component extends Component {
     render() { 
 
       const displayModel = this.state.displayModel;
-      const available_users = this.state.available_users;
+      //const available_users = this.state.available_users;
 
       return ( 
           //Main container

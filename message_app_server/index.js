@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*********',
+    password: 'TheUshanka!2',
     database: 'message_app_db'
 
 });
@@ -76,6 +76,7 @@ app.post('/api/insert', async (req, res) => {
             }else{
                 console.log(result);
             }
+            
     }); 
 
 });
