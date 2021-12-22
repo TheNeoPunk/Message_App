@@ -25,7 +25,11 @@ class Contact_Component extends Component {
       
       this.state = { 
 
-        user_friends_list: []
+        user_friends_list: [],
+        generated_chat_id: null, 
+        sender_name: null,
+        receiver_name: null,
+        Authorize_Chat: false
 
       };
     
@@ -40,26 +44,109 @@ class Contact_Component extends Component {
         friends_list.length = localStorage.getItem('friends_list').length;
 
       }
-
+      
       console.log(friends_list[0]);
 
       this.setState({
 
         user_friends_list: friends_list
+        
 
       });
+
+      if(AuthChat.authorize_Chat == true){
+
+        console.log('Authorized');
+        this.setState({
+
+          generated_chat_id: 12135,
+          sender_name: localStorage.getItem('fullName'),
+          //receiver_name: receive_user
+  
+        });
+
+      }else{
+
+        console.log('Unauthorized')
+      }
         
     }
 
     componentDidUpdate = () => {
 
-      console.log(this.state.user_friends_list[0]);
+      //console.log(this.state.user_friends_list);
 
     }
 
-    activateChat = () => {
+    activateChat = (receive_user) => {
 
       AuthChat.authorize_Chat = true;
+      this.searchThread = false;
+      
+      this.senderName = localStorage.getItem('fullName');
+      
+      //console.log('Generate new chat thread');
+      //console.log(this.state.user_friends_list);
+      //console.log(receive_user);
+      
+      //Authorize a chat thread generation
+     // if(){
+
+
+
+      //}
+
+      if(AuthChat.authorize_Chat == true){
+
+        console.log('Authorized');
+        this.setState({
+
+          generated_chat_id: 12135,
+          sender_name: this.senderName,
+          receiver_name: receive_user
+  
+        });
+
+      }else{
+
+        console.log('Unauthorized');
+
+      }
+     
+      //First check for existing chat threads between Sender and Receiver
+      Axios.post('http://localhost:3001/checkChat',{
+
+        //gen_chat_id: this.state.generated_chat_id,
+        sender_name_rec: this.state.sender_name,
+        reciver_name_rec: this.state.receiver_name
+
+      }).then((response => { //Give out response after checking
+
+        //console.log(response.data);
+        //console.log(response.data.length);
+
+        //If there is no chat thread currently existing
+        if(response.data.length == 0){
+
+          //Create the chat thread
+          console.log('the whole thing is null');
+          Axios.post('http://localhost:3001/generateChat', {
+
+            gen_chat_id: this.generated_chat_id,
+            default_chat_mssg: this.default_chat_mssg,
+            sender_name_rec: this.state.sender_name,
+            reciver_name_rec: this.state.receiver_name
+
+          });
+
+        }else if (response.data.length != 0){ //Else if it DOES EXIST
+
+          //pull up the existing thread
+
+
+        };
+
+      }));
 
     }
 
@@ -106,7 +193,7 @@ class Contact_Component extends Component {
                 {/* --------CONTACT RESULTS--------- */}
                 {this.state.user_friends_list.map(curr_friends => 
                   
-                  <div className="d-flex m-3 pe-auto" onClick={this.activateChat()} style={{cursor: "pointer"}}>
+                  <div className="d-flex m-3 pe-auto" onClick={() => this.activateChat(curr_friends)} style={{cursor: "pointer"}}>
                   <div className="flex-shrink-1"></div>
                   <div className="flex-grow-1">
                     <div className="d-flex justify-content-center">
@@ -133,8 +220,7 @@ class Contact_Component extends Component {
               </div>
             
             </div>
-        </div>   
-        
+        </div>           
 
       );
     }
