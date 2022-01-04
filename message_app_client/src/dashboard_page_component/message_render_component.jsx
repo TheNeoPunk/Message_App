@@ -19,17 +19,13 @@ class RenderMessage extends Component {
     
     constructor(props) {
         
-        super(props);
+      super(props);
 
-        this.state = { 
-
-          chat_enable: AuthChat.authorize_Chat,
-          sent_data: null
-
-        }
-
+      this.state = { 
+        chat_enable: AuthChat.authorize_Chat,
+        sent_data: null
+      }
     }
-
     handleMssg = (event) => {
 
         /* Axios.post('http://localhost:3001/sendMessage',{
@@ -67,6 +63,12 @@ class RenderMessage extends Component {
 
     }
 
+    componentDidMount = () => {
+
+      AuthChat.authorize_Chat = false;
+
+    }
+
     render() {
 
         if(this.state.chat_enable === true){
@@ -88,11 +90,15 @@ class RenderMessage extends Component {
                     <div id="mssg-input-container" className="fill-width">
     
                       {/*----MESSAGE DISPLAY ITEM----- */}
+                      
+                      {/* Sender */}
                       <div className="message-item-box p-4 fill-width d-flex">
                         <div className="message-chat-icon bg-light rounded-circle shadow"></div>
                         <div className="flex-grow-1"></div>
                         <div className="message-chat-div p-2 fill-width fill-height rounded-pill">Lorem Ipsum Dolor</div>
                       </div>
+
+                      {/* Receiver */}
                       <div className="message-item-box p-4 fill-width d-flex flex-row-reverse">
                         <div className="message-chat-icon bg-light rounded-circle shadow"></div>
                         <div className="flex-grow-1"></div>

@@ -29,7 +29,8 @@ class Contact_Component extends Component {
         generated_chat_id: null, 
         sender_name: null,
         receiver_name: null,
-        Authorize_Chat: false
+        Authorize_Chat: false,
+        default_chat_mssg: "Hello World"
 
       };
     
@@ -45,12 +46,11 @@ class Contact_Component extends Component {
 
       }
       
-      console.log(friends_list[0]);
+     // console.log(friends_list[0]);
 
       this.setState({
 
         user_friends_list: friends_list
-        
 
       });
 
@@ -67,7 +67,7 @@ class Contact_Component extends Component {
 
       }else{
 
-        console.log('Unauthorized')
+        console.log('Unauthorized');
       }
         
     }
@@ -78,42 +78,101 @@ class Contact_Component extends Component {
 
     }
 
-    activateChat = (receive_user) => {
+    activateChat = async (receive_user) => {
 
       AuthChat.authorize_Chat = true;
       this.searchThread = false;
+
+      var id_gen = Math.floor(Math.random() * 100);
+
+      console.log(id_gen);
       
       this.senderName = localStorage.getItem('fullName');
       
       //console.log('Generate new chat thread');
       //console.log(this.state.user_friends_list);
       //console.log(receive_user);
-      
-      //Authorize a chat thread generation
-     // if(){
 
+      this.setState({
 
+        sender_name: this.senderName,
+        receiver_name: receive_user
 
-      //}
+      }, () => {
 
-      if(AuthChat.authorize_Chat == true){
+        //First check for existing chat threads between Sender and Receiver
+        Axios.post('http://localhost:3001/checkChat',{
 
-        console.log('Authorized');
-        this.setState({
+          //gen_chat_id: this.state.generated_chat_id,
+          sender_name_rec: this.state.sender_name,
+          reciver_name_rec: this.state.receiver_name
 
-          generated_chat_id: 12135,
-          sender_name: this.senderName,
-          receiver_name: receive_user
-  
-        });
+        }).then((response => { //Give out response after checking
 
-      }else{
+          //console.log(response.data);
+          //console.log(response.data.length);
 
-        console.log('Unauthorized');
+          //If there is no chat thread currently existing
+          if(response.data.length == 0){
 
-      }
+            //Create the chat thread
+            console.log('chat_generated');
+            Axios.post('http://localhost:3001/generateChat', {
+
+              default_chat_mssg: this.state.default_chat_mssg,
+              sender_name_rec: this.state.sender_name,
+              reciver_name_rec: this.state.receiver_name
+
+            }).then((response => {
+
+              console.log(response.data);
+              AuthChat.authorize_Chat = true;
+              this.props.history.push('/messages');
+              
+            }));
+
+              //Grab the newly generated chat info
+
+            Axios.post('http://localhost:3001/grabChatInfo', {
+
+              sender_name_rec: this.state.sender_name,
+              reciver_name_rec: this.state.receiver_name
+
+            });
+
+          }else if (response.data.length != 0){ //Else if it DOES EXIST
+
+            //pull up the existing thread
+            console.log("The chat does exist");
+            AuthChat.authorize_Chat = true;
+
+            //Grab the existing chat info
+            Axios.post('http://localhost:3001/grabChatInfo', {
+
+              sender_name_rec: this.state.sender_name,
+              reciver_name_rec: this.state.receiver_name
+
+            }).then((response => {
+
+             // console.log(response.data);
+              //console.log(response.data[0].chat_message);
+
+              AuthChat.exist_chat_messages.push(response.data);
+              console.log(AuthChat.exist_chat_messages[0]);
+          
+              
+
+            }));
+
+            this.props.history.push('/messages');
+
+          };
+
+        }));
+
+      });
      
-      //First check for existing chat threads between Sender and Receiver
+      /*//First check for existing chat threads between Sender and Receiver
       Axios.post('http://localhost:3001/checkChat',{
 
         //gen_chat_id: this.state.generated_chat_id,
@@ -122,11 +181,11 @@ class Contact_Component extends Component {
 
       }).then((response => { //Give out response after checking
 
-        //console.log(response.data);
+        console.log(response.data);
         //console.log(response.data.length);
 
         //If there is no chat thread currently existing
-        if(response.data.length == 0){
+        /*if(response.data.length == 0){
 
           //Create the chat thread
           console.log('the whole thing is null');
@@ -142,11 +201,11 @@ class Contact_Component extends Component {
         }else if (response.data.length != 0){ //Else if it DOES EXIST
 
           //pull up the existing thread
-
+          console.log("The chat does exist");
 
         };
 
-      }));
+      }));*/
 
     }
 
@@ -197,9 +256,7 @@ class Contact_Component extends Component {
                   <div className="flex-shrink-1"></div>
                   <div className="flex-grow-1">
                     <div className="d-flex justify-content-center">
-                      <div className="contact-item bg-light shadow-sm d-flex">
-
-                        
+                      <div className="contact-item bg-light shadow-sm d-flex">                        
                           <div className="profile-icon bg-secondary m-5"></div>
                          
                           <div className="align-self-center">
@@ -208,7 +265,6 @@ class Contact_Component extends Component {
                           </div>
                          
                           <div className="ms-auto status-icon m-5 rounded-circle align-self-center"></div>
-
                       </div>
                     </div>
                   </div>

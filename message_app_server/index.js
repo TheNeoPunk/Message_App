@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*********',
+    password: '*******',
     database: 'message_app_db'
 
 });
@@ -210,12 +210,13 @@ app.post('/sendMessage', async (req, res) => {
 
 app.post('/checkChat',  async (req, res) => {
 
-    const chat_id = req.body.gen_chat_id;
     const sender_name = req.body.sender_name_rec;
     const receiver_name = req.body.reciver_name_rec;
+
+    console.log(sender_name, receiver_name);
     
     //const chat_id_SQLCheck = "SELECT DISTINCT id FROM message_app_db.chat_thread WHERE id = ?";
-    const chat_SQLCheck = "SELECT DISTINCT sender FROM message_app_db.chat_thread WHERE sender = ? and receiver = ?";
+    const chat_SQLCheck = "SELECT DISTINCT sender, receiver FROM message_app_db.chat_thread WHERE sender = ? and receiver = ?";
     
     //sender and receiver query search
     db.query(
@@ -229,11 +230,8 @@ app.post('/checkChat',  async (req, res) => {
             }else{
                 console.log(result);
             }
-            console.log(result);
 
             res.send(result);
-
-
         }
 
     );    
@@ -247,8 +245,8 @@ app.post('/generateChat',  async (req, res) => {
     const sender_name = req.body.sender_name_rec;
     const receiver_name = req.body.reciver_name_rec;
     
-   // const chat_id_SQLCheck = "SELECT DISTINCT id FROM message_app_db.chat_thread WHERE id = ?";
-    const chat_SQLCheck = "INSERT INTO user_info (id, chat_message, sender, receiver) VALUES (?,?,?,?);";
+    // const chat_id_SQLCheck = "SELECT DISTINCT id FROM message_app_db.chat_thread WHERE id = ?";
+    const chat_SQLCheck = "INSERT INTO chat_thread (id, chat_message, sender, receiver) VALUES (?,?,?,?);";
     
     //sender and receiver query search
     db.query(
@@ -262,16 +260,41 @@ app.post('/generateChat',  async (req, res) => {
             }else{
                 console.log(result);
             }
-            console.log(result);
 
             res.send(result);
-
 
         }
 
     );    
 
 }); 
+
+app.post('/grabChatInfo', async (req, res) => {
+
+    const sender_name = req.body.sender_name_rec;
+    const receiver_name = req.body.reciver_name_rec;
+
+    const chatInfo_SQLCheck = "SELECT DISTINCT * FROM message_app_db.chat_thread WHERE sender = ? and receiver = ?";
+    
+    db.query(
+
+        chatInfo_SQLCheck,
+        [sender_name, receiver_name],
+        (err, result) => {
+
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+
+            res.send(result);
+
+        }
+
+    )
+
+});
 
 app.get('/', (req, res) => {
 

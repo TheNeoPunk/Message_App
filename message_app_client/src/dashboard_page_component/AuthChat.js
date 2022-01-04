@@ -3,6 +3,7 @@ class AuthChat {
     constructor(){
 
         this.authorize_Chat = false;
+        this.exist_chat_messages = [];
 
     }
 
@@ -14,7 +15,7 @@ class AuthChat {
 
     unAuthorize(){
 
-        this.authorize_Chat = true;
+        this.authorize_Chat = false;
 
     }
 
