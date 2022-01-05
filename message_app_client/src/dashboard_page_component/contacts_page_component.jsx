@@ -157,8 +157,9 @@ class Contact_Component extends Component {
              // console.log(response.data);
               //console.log(response.data[0].chat_message);
 
-              AuthChat.exist_chat_messages.push(response.data);
-              console.log(AuthChat.exist_chat_messages[0]);
+              //Store chat data and store for message_render_component.jsx
+              AuthChat.exist_chat_messages = (response.data);
+              console.log(AuthChat.exist_chat_messages[0].chat_message);
           
               
 

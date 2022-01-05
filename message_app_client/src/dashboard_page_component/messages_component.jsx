@@ -74,8 +74,15 @@ class Message_Component extends Component {
         available_users: []
       
       }
+
     }
-  
+
+  componentDidMount(){
+
+   
+
+  }
+
   handleFriendRequest = (request_receiver, id) => {
 
     let auth_User = localStorage.getItem('fullName');

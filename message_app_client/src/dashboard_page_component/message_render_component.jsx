@@ -23,6 +23,7 @@ class RenderMessage extends Component {
 
       this.state = { 
         chat_enable: AuthChat.authorize_Chat,
+        existing_messages: AuthChat.exist_chat_messages,
         sent_data: null
       }
     }
@@ -66,11 +67,12 @@ class RenderMessage extends Component {
     componentDidMount = () => {
 
       AuthChat.authorize_Chat = false;
-
+   
     }
 
     render() {
 
+      
         if(this.state.chat_enable === true){
 
             return ( 
@@ -91,19 +93,27 @@ class RenderMessage extends Component {
     
                       {/*----MESSAGE DISPLAY ITEM----- */}
                       
-                      {/* Sender */}
-                      <div className="message-item-box p-4 fill-width d-flex">
-                        <div className="message-chat-icon bg-light rounded-circle shadow"></div>
-                        <div className="flex-grow-1"></div>
-                        <div className="message-chat-div p-2 fill-width fill-height rounded-pill">Lorem Ipsum Dolor</div>
-                      </div>
+                     
 
                       {/* Receiver */}
+                      
                       <div className="message-item-box p-4 fill-width d-flex flex-row-reverse">
                         <div className="message-chat-icon bg-light rounded-circle shadow"></div>
                         <div className="flex-grow-1"></div>
                         <div className="message-chat-div p-2 fill-width fill-height rounded-pill">Lorem Ipsum Dolor</div>
                       </div>
+
+                      {/* Sender */}
+                      {this.state.existing_messages.map(chat_item => 
+                       <React.Fragment>
+                          <div className="message-item-box p-4 fill-width d-flex">
+                          <div className="message-chat-icon bg-light rounded-circle shadow"></div>
+                          <div className="flex-grow-1"></div>
+                          <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> <p>{chat_item.chat_message}</p>  </div>
+                          </div>
+                       </React.Fragment>
+                         
+                      )}
     
                     </div>
                       

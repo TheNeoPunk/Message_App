@@ -3,7 +3,7 @@ class AuthChat {
     constructor(){
 
         this.authorize_Chat = false;
-        this.exist_chat_messages = [];
+        const exist_chat_messages = null;
 
     }
 
