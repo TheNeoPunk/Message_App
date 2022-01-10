@@ -38,6 +38,7 @@ class Contact_Component extends Component {
 
     componentDidMount = () => {
 
+      //Grab friends list
       var friends_list = JSON.parse(localStorage.getItem('friends_list'));
 
       if(this.state.user_friends_list.length >= localStorage.getItem('friends_list').length){
@@ -59,8 +60,7 @@ class Contact_Component extends Component {
         console.log('Authorized');
         this.setState({
 
-          generated_chat_id: 12135,
-          sender_name: localStorage.getItem('fullName'),
+          sender_name: localStorage.getItem('fullName')
           //receiver_name: receive_user
   
         });
@@ -83,9 +83,9 @@ class Contact_Component extends Component {
       AuthChat.authorize_Chat = true;
       this.searchThread = false;
 
-      var id_gen = Math.floor(Math.random() * 100);
+      //var id_gen = Math.floor(Math.random() * 100);
 
-      console.log(id_gen);
+      //console.log(id_gen);
       
       this.senderName = localStorage.getItem('fullName');
       
@@ -125,7 +125,7 @@ class Contact_Component extends Component {
 
             }).then((response => {
 
-              console.log(response.data);
+              //console.log(response.data);
               AuthChat.authorize_Chat = true;
               this.props.history.push('/messages');
               
@@ -143,7 +143,7 @@ class Contact_Component extends Component {
           }else if (response.data.length != 0){ //Else if it DOES EXIST
 
             //pull up the existing thread
-            console.log("The chat does exist");
+            //console.log("The chat does exist");
             AuthChat.authorize_Chat = true;
 
             //Grab the existing chat info
@@ -158,14 +158,12 @@ class Contact_Component extends Component {
               //console.log(response.data[0].chat_message);
 
               //Store chat data and store for message_render_component.jsx
-              AuthChat.exist_chat_messages = (response.data);
-              console.log(AuthChat.exist_chat_messages[0].chat_message);
-          
-              
+              AuthChat.exist_chat_messages = response.data;
+              console.log(AuthChat.exist_chat_messages);
+              this.props.history.push('/messages');
+              //console.log(AuthChat.exist_chat_messages[0].chat_message);
 
             }));
-
-            this.props.history.push('/messages');
 
           };
 

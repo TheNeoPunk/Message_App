@@ -3,7 +3,9 @@ class AuthChat {
     constructor(){
 
         this.authorize_Chat = false;
-        const exist_chat_messages = null;
+        this.exist_chat_messages = [];
+
+        console.log(this.exist_chat_messages);
 
     }
 
