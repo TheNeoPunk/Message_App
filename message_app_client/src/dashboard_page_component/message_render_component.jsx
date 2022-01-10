@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component ,useState, useEffect} from 'react';
+import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  //import for page navigation
 import Axios from 'axios';
 
 //ICON imports
@@ -16,75 +17,79 @@ import AuthChat from './AuthChat';
 import MessageHeader from './msg_chat_header';
 
 //Grab messages from the sender and the receiver
-
-
 function SortChat (authchat_messages) {
 
-  var total_messages = [];
-
-  var date_Sample = new Date(authchat_messages.messageList[0].mssg_date);
-
-  //console.log(authchat_messages.messageList[0].sender);
-  console.log(authchat_messages.messageList.length);
-  //console.log(localStorage.getItem('fullName'));
-
+  var total_messages = [];  
+      
   //Go through the chat list of the current sender and receiver and sort them 
-  for(var x = 0; x <= authchat_messages.messageList.length-1; x++){
-
-    //console.log(x)
-    // console.log(authchat_messages.messageList[x].sender)
-    
+  for(var x = 0; x <= authchat_messages.length-1; x++){
   //Send to sender list
-    if(authchat_messages.messageList[x].sender == localStorage.getItem('fullName')){
-
+    if(authchat_messages.sender == localStorage.getItem('fullName')){
       console.log('These messages are from the sender');
-
       total_messages.push(
-    
         <div className="message-item-box p-4 fill-width d-flex">
           <div className="message-chat-icon bg-light rounded-circle shadow"></div>
           <div className="flex-grow-1"></div>
-          <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> {authchat_messages.messageList[x].chat_message}  </div>
+          <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> {authchat_messages.chat_message}  </div>
         </div>
-                       
       ); 
-
+        
       //Send to receiver sender list
-    }else if(authchat_messages.messageList[x].sender != localStorage.getItem('fullName')){
-
+    }else if(authchat_messages.sender != localStorage.getItem('fullName')){
+      
       console.log('These messages are for the receiver');
-
+      
       total_messages.push(  
         <div className="message-item-box p-4 fill-width d-flex flex-row-reverse">
           <div className="message-chat-icon bg-light rounded-circle shadow"></div>
           <div className="flex-grow-1"></div>
-          <div className="message-chat-div p-2 fill-width fill-height rounded-pill">{authchat_messages.messageList[x].chat_message}</div>
+          <div className="message-chat-div p-2 fill-width fill-height rounded-pill">{authchat_messages.chat_message}</div>
         </div>
       );
-
     }
-  
   }
-
-  //console.log( sender_messages);
-  //console.log( receiver_messages);
-  //console.log( authchat_messages.messageList[0].mssg_date)
-  //console.log( date_Sample.getTime() );
+  
+  console.log(authchat_messages.length);
+  
+  //return total_messages
   return total_messages
+
+}
+
+function RenderChat (render_total_messages){
+
+  const [count, setCount] = useState(0);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
 
 }
 
 class RenderMessage extends Component {
     
     constructor(props) {
-        
+     
       super(props);
 
       this.state = { 
         chat_enable: AuthChat.authorize_Chat,
         existing_messages: AuthChat.exist_chat_messages,
-        sent_data: null
+        sent_data: null,
+        render_total_mssges: []
       }
+
     }
 
     handleMssg = (event) => {
@@ -109,36 +114,47 @@ class RenderMessage extends Component {
     handleMssgData = (event) => {
 
       event.preventDefault();
-     
       Axios.post('http://localhost:3001/sendMessage', {
 
         auth_message: this.state.sent_data,
-        auth_message_user: localStorage.getItem("fullName")
+        auth_message_user: localStorage.getItem("fullName"),
+        auth_mssg_receiver: AuthChat.receiver_name
 
       }).then((response => {
 
-        //console.log(response.data);
+        console.log(response.data);
         //console.log(response.data[0].message, response.data[0].name);
 
       }));
 
     }
 
+    //When the component mounts
     componentDidMount = () => {
 
       AuthChat.authorize_Chat = false;
-      //console.log(AuthChat.exist_chat_messages);
+      
+      //console.log(this.state.existing_messages.length);
+      //console.log(SortChat(this.state.existing_messages))
       //console.log('mounted');
+
       this.setState({
 
-        existing_messages: AuthChat.exist_chat_messages
+        existing_messages: AuthChat.exist_chat_messages,
 
-      })
+      });
    
     }
 
-    render() {
+    componentDidUpdate = () => {
 
+  
+
+    }
+
+   
+
+    render() {
       
         if(this.state.chat_enable === true){
 
@@ -160,7 +176,10 @@ class RenderMessage extends Component {
     
                       {/*----MESSAGE DISPLAY ITEM----- */}
                       
-                      <SortChat messageList={this.state.existing_messages} />
+                      {/*<SortChat messageList={this.state.existing_messages} />} */}
+                      <RenderChat messageList={this.state.existing_messages} />
+
+                     
 
                       {/* Receiver */}
                       
@@ -185,15 +204,16 @@ class RenderMessage extends Component {
     
                     </div>
                       
-                    <form class="flex-fill">
+                    <form class="fill-width">
                       {/*------MEDSSAGE INPUT --------*/}
-                      <div className="message-chat-box border-primary p-4 fill-width d-flex"> 
+                      <div className="message-chat-box border-primary p-4 fill-width d-flex" > 
                         
-                        <div className="p-2">
+                        {/*} <div className="p-2">
 
                           <BsPlusCircle/>
 
-                        </div>
+                        </div>*/}
+
                         <div className="message-box-input fill-width">
 
                           <input className="p-2" type="text" name="message" onChange={this.handleMssg}/>

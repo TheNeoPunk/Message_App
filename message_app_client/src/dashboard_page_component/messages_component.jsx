@@ -77,20 +77,14 @@ class Message_Component extends Component {
 
     }
 
-  componentDidMount(){
-
-   
-
-  }
-
   handleFriendRequest = (request_receiver, id) => {
 
     let auth_User = localStorage.getItem('fullName');
     let friend_confirm = false; 
     let reqReceiver = request_receiver;
 
-    console.log('working');
-    console.log(id);
+    //console.log('working');
+    //console.log(id);
 
     Axios.post('http://localhost:3001/friendRequest', {
 

@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '************',
+    password: 'TheUshanka!2',
     database: 'message_app_db'
 
 });
@@ -187,7 +187,6 @@ app.post('/friendRequest', async (req, res) => {
             }else{
                 console.log(result);
             }
-            console.log(result);
 
             res.send(result);
 
@@ -200,11 +199,30 @@ app.post('/sendMessage', async (req, res) => {
 
     const user_a_mssg = req.body.auth_message;
     const user_a_name = req.body.auth_message_user;
+    const user_b_name = req.body.auth_mssg_receiver;
 
     //console.log(user_a_mssg);
     //console.log(user_a_name);
 
-    res.send({message: user_a_mssg, name: user_a_name});
+    const createSQLCHATQuery = "INSERT INTO message_app_db.chat_thread (chat_message, sender, receiver) VALUES (?,?,?);";
+
+    db.query(
+        
+        createSQLCHATQuery,
+        [user_a_mssg, user_a_name, user_b_name],
+        (err, result) => {
+
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+
+            res.send(result);
+
+        }
+
+    );
 
 });
 
