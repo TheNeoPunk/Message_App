@@ -56,14 +56,56 @@ function SortChat (authchat_messages) {
 
 }
 
-function RenderChat (render_total_messages){
+
+
+function RenderChat (){
 
   const [count, setCount] = useState(0);
+
+  function handleMssg(event){
+
+    /* Axios.post('http://localhost:3001/sendMessage',{
+      auth_message: ,
+      auth_message_user:,
+      auth_message_data:
+
+    })*/
+    
+    this.setState({
+
+      sent_data: event.target.value
+
+    });
+
+    event.preventDefault();
+
+  }
+
+  function handleMssgData (event) {
+
+    event.preventDefault();
+    Axios.post('http://localhost:3001/sendMessage', {
+  
+      auth_message: this.state.sent_data,
+      auth_message_user: localStorage.getItem("fullName"),
+      auth_mssg_receiver: AuthChat.receiver_name
+  
+    }).then((response => {
+  
+      console.log(response.data);
+      //console.log(response.data[0].message, response.data[0].name);
+  
+    }));
+  
+  }
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
+
+    document.chat_post = {SortChat()}
+
+    document.title = {count};
   });
 
   return (
@@ -72,7 +114,34 @@ function RenderChat (render_total_messages){
       <button onClick={() => setCount(count + 1)}>
         Click me
       </button>
+
+        {/*<SortChat messageList={this.state.existing_messages} />} */}
+        <SortChat messageList={this.state.existing_messages} />}
+
+      <form class="fill-width">
+        {/*------MEDSSAGE INPUT --------*/}
+        <div className="message-chat-box border-primary p-4 fill-width d-flex" > 
+          
+          {/*} <div className="p-2">
+            <BsPlusCircle/>
+          </div>*/}
+          <div className="message-box-input fill-width">
+            <input className="p-2" type="text" name="message" onChange={handleMssg}/>
+          </div>
+          
+          <div className="ms-auto p-2">
+            <button onClick={handleMssgData} role="button">
+              <BsUpload/>
+            </button>
+           
+          </div>
+          
+        </div>
+      </form>
+
     </div>
+
+    
   );
 
 }
@@ -92,14 +161,14 @@ class RenderMessage extends Component {
 
     }
 
-    handleMssg = (event) => {
+    /*handleMssg = (event) => {
 
         /* Axios.post('http://localhost:3001/sendMessage',{
           auth_message: ,
           auth_message_user:,
           auth_message_data:
   
-        })*/
+        })
         
         this.setState({
   
@@ -127,7 +196,7 @@ class RenderMessage extends Component {
 
       }));
 
-    }
+    }*/
 
     //When the component mounts
     componentDidMount = () => {
@@ -151,8 +220,6 @@ class RenderMessage extends Component {
   
 
     }
-
-   
 
     render() {
       
@@ -204,15 +271,15 @@ class RenderMessage extends Component {
     
                     </div>
                       
-                    <form class="fill-width">
-                      {/*------MEDSSAGE INPUT --------*/}
+                    {/*<form class="fill-width">
+                      {/*------MEDSSAGE INPUT --------
                       <div className="message-chat-box border-primary p-4 fill-width d-flex" > 
                         
                         {/*} <div className="p-2">
 
                           <BsPlusCircle/>
 
-                        </div>*/}
+                        </div>
 
                         <div className="message-box-input fill-width">
 
@@ -229,7 +296,7 @@ class RenderMessage extends Component {
                         </div>
                         
                       </div>
-                    </form>
+                    </form>*/}
                 
                 </div>
     

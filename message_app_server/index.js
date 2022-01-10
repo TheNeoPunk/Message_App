@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: 'TheUshanka!2',
+    password: '**********',
     database: 'message_app_db'
 
 });
@@ -207,7 +207,7 @@ app.post('/sendMessage', async (req, res) => {
     const createSQLCHATQuery = "INSERT INTO message_app_db.chat_thread (chat_message, sender, receiver) VALUES (?,?,?);";
 
     db.query(
-        
+
         createSQLCHATQuery,
         [user_a_mssg, user_a_name, user_b_name],
         (err, result) => {
