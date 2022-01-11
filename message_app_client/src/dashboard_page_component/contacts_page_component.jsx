@@ -161,8 +161,8 @@ class Contact_Component extends Component {
               AuthChat.exist_chat_messages = response.data;
               AuthChat.receiver_name = this.state.receiver_name;
 
-              console.log(AuthChat.receiver_name);
-              console.log(AuthChat.exist_chat_messages);
+             // //console.log(AuthChat.receiver_name);
+              //console.log(AuthChat.exist_chat_messages);
               
               this.props.history.push('/messages');
               //console.log(AuthChat.exist_chat_messages[0].chat_message);

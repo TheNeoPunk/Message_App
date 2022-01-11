@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '**********',
+    password: '************',
     database: 'message_app_db'
 
 });
@@ -223,6 +223,32 @@ app.post('/sendMessage', async (req, res) => {
         }
 
     );
+
+});
+
+//After user sends a message, grab it for rendering
+app.post('/grabLatestMessage', async (req, res) => {
+
+    const recent_mssg = req.body.recent_mssg;
+
+    const SelectRecentQuery = "SELECT * FROM message_app_db.chat_thread WHERE chat_message = ?";
+
+    db.query(
+        SelectRecentQuery,
+        [recent_mssg],
+        (err, result) => {
+
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+
+            res.send(result);
+        }
+
+    )
+
 
 });
 

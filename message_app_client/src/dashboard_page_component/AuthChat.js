@@ -4,6 +4,7 @@ class AuthChat {
 
         this.authorize_Chat = false;
         this.exist_chat_messages = [];
+        this.updated_chat = [];
         this.receiver_name = null;
 
         console.log(this.exist_chat_messages);
