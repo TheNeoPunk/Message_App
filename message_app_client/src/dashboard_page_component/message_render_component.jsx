@@ -197,7 +197,7 @@ function RenderChat() {
 
     event.preventDefault();
     handleMssg(event.target.value);
-    renderArray([SortChat(AuthChat.exist_chat_messages), AppendRecentMessage(handleMssgData())])
+    renderArray([renderTotalMessages, AppendRecentMessage(handleMssgData())])
     
   }
 
