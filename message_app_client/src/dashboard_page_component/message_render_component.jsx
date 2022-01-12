@@ -157,13 +157,13 @@ function AppendRecentMessage(recent_message) {
     console.log('no recent messages')
   }
 
-  /*var recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
+  var recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
           <div className="message-chat-icon bg-light rounded-circle shadow"></div>
           <div className="flex-grow-1"></div>
           <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> {recent_message.chat_message}  </div>
-        </div>*/
+        </div>/**/
   
- //return recent_message_render /**/
+ return recent_message_render /**/
 
 }
 
@@ -181,7 +181,7 @@ function RenderChat() {
     event.preventDefault();
     handleMssg(event.target.value);
     handleMssgData()
-    renderArray([renderTotalMessages, AppendRecentMessage()])
+    //renderArray([renderTotalMessages, AppendRecentMessage()])
     //console.log(recentMssgArr)
     
   }
