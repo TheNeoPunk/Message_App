@@ -150,8 +150,6 @@ function SortChat (authchat_messages) {
 //Returns the recent message in html form similar to SortChat
 function AppendRecentMessage(recent_message) {
 
-  var recent_message_render = null;
-
   if(recent_message){
     console.log('latest message received')
     console.log(recent_message.chat_message);
@@ -159,17 +157,13 @@ function AppendRecentMessage(recent_message) {
     console.log('no recent messages')
   }
 
- /* recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
+  /*var recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
           <div className="message-chat-icon bg-light rounded-circle shadow"></div>
           <div className="flex-grow-1"></div>
           <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> {recent_message.chat_message}  </div>
-        </div>
-
-  //console.log(recent_message.chat_message)
-
-  //console.log(recent_message_render)
+        </div>*/
   
-  return recent_message_render */
+ //return recent_message_render /**/
 
 }
 
@@ -180,14 +174,22 @@ function RenderChat() {
   let sent_data = useState(null);
   let sent_user_input = useRef(null);
 
+  const [recentMssgArr, setNewMssg] = useState([]);
+
   function modifyTotalMessages (event) {
 
     event.preventDefault();
     handleMssg(event.target.value);
-    console.log(handleMssgData())
-    renderArray([renderTotalMessages, AppendRecentMessage(handleMssgData())])
+    handleMssgData()
+    renderArray([renderTotalMessages, AppendRecentMessage()])
+    //console.log(recentMssgArr)
     
   }
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    //setNewMssg(handleMssgData());
+  });
 
   function handleMssg  () {
 
@@ -195,22 +197,42 @@ function RenderChat() {
       //console.log(sent_data)
   }
 
-  function handleMssgData (){
+  async function handleMssgData (){
+
     //Appends to rendering array
-     Axios.post('http://localhost:3001/sendMessage', {
+    await Axios.post('http://localhost:3001/sendMessage', {
 
       auth_message: sent_data,
       auth_message_user: localStorage.getItem("fullName"),
       auth_mssg_receiver: AuthChat.receiver_name
 
-    }).then((response => {
-      
-      console.log(response.data);
-      return response.data
+    }).then(function (results) {
 
-    }));
-
+      // setNewMssg([recentMssgArr, results[0]]);
+      console.log(results.data[0])
+      renderArray([renderTotalMessages, AppendRecentMessage(results.data[0])])
+      //return results.data[0]
+ 
+     });
+  
+    //return mssgReturn.data
   }
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    
+  });
+
+  /*async function MssgDataPromiseReturn(){
+
+    Promise.resolve([handleMssgData()]).then(function (results) {
+
+     // setNewMssg([recentMssgArr, results[0]]);
+     console.log(results)
+
+    });
+
+  };*/
 
   return (
     <React.Fragment>

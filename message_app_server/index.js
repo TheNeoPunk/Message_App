@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '*********',
+    password: '*******',
     database: 'message_app_db',
     multipleStatements: 'true'
 
@@ -196,7 +196,7 @@ app.post('/friendRequest', async (req, res) => {
 
 });
 
-app.post('/sendMessage', async (req, res) => {
+app.post('/sendMessage', (req, res) => {
 
    // const recent_mssg = req.body.recent_mssg;
     const user_a_mssg = req.body.auth_message;
@@ -221,7 +221,7 @@ app.post('/sendMessage', async (req, res) => {
                 console.log('message sent');
                 console.log(result);
             }
-            res.send(result);
+            res.send(result[1]);
         }
     );
 });
