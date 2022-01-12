@@ -12,8 +12,9 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '**********',
-    database: 'message_app_db'
+    password: '*********',
+    database: 'message_app_db',
+    multipleStatements: 'true'
 
 });
 
@@ -197,6 +198,7 @@ app.post('/friendRequest', async (req, res) => {
 
 app.post('/sendMessage', async (req, res) => {
 
+   // const recent_mssg = req.body.recent_mssg;
     const user_a_mssg = req.body.auth_message;
     const user_a_name = req.body.auth_message_user;
     const user_b_name = req.body.auth_mssg_receiver;
@@ -204,34 +206,32 @@ app.post('/sendMessage', async (req, res) => {
     //console.log(user_a_mssg);
     //console.log(user_a_name);
 
-    const createSQLCHATQuery = "INSERT INTO message_app_db.chat_thread (chat_message, sender, receiver) VALUES (?,?,?);";
+    const createSQLCHATQuery = 
+        "INSERT INTO message_app_db.chat_thread (chat_message, sender, receiver) VALUES (?,?,?); SELECT DISTINCT id, chat_message, sender, receiver FROM message_app_db.chat_thread WHERE chat_message = ?";
 
     db.query(
 
         createSQLCHATQuery,
-        [user_a_mssg, user_a_name, user_b_name],
+        [user_a_mssg, user_a_name, user_b_name, user_a_mssg],
         (err, result) => {
 
             if(err){
                 console.log(err);
             }else{
+                console.log('message sent');
                 console.log(result);
             }
-
             res.send(result);
-
         }
-
     );
-
 });
 
 //After user sends a message, grab it for rendering
-app.post('/grabLatestMessage', async (req, res) => {
+/*app.post('/grabLatestMessage', async (req, res) => {
 
-    const recent_mssg = req.body.recent_mssg;
-
-    const SelectRecentQuery = "SELECT * FROM message_app_db.chat_thread WHERE chat_message = ?";
+    
+    console.log(recent_mssg)
+    const SelectRecentQuery = "SELECT DISTINCT id, chat_message, sender, receiver FROM message_app_db.chat_thread WHERE chat_message = ?";
 
     db.query(
         SelectRecentQuery,
@@ -241,9 +241,10 @@ app.post('/grabLatestMessage', async (req, res) => {
             if(err){
                 console.log(err);
             }else{
+                console.log('message grabbed');
                 console.log(result);
             }
-
+           
             res.send(result);
         }
 
@@ -251,7 +252,7 @@ app.post('/grabLatestMessage', async (req, res) => {
 
 
 });
-
+*/
 app.post('/checkChat',  async (req, res) => {
 
     const sender_name = req.body.sender_name_rec;

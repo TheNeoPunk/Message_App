@@ -74,17 +74,7 @@ import { render } from '@testing-library/react';
 
 function SortChat (authchat_messages) {
 
-  
-
-  //console.log('This is working');
-  //console.log(authchat_messages.length);
-
   var total_messages = [];
-
-  //console.log(authchat_messages.messageList[0].sender);
-  //console.log(authchat_messages.messageList.length);
-  //console.log(localStorage.getItem('fullName'));
-  
 
   //Go through the chat list of the current sender and receiver and sort them 
   for(var x = 0; x <= authchat_messages.length-1; x++){
@@ -123,13 +113,12 @@ function SortChat (authchat_messages) {
     }
   
   }
-
   
   return total_messages
 
 }
 
-function Example() {
+/*function Example() {
   let [count, setCount] = useState(0);
 
   let [arraysample, setArray] = useState([1,2,3,4]);
@@ -156,7 +145,7 @@ function Example() {
   );
 
   
-}
+}*/
 
 //Returns the recent message in html form similar to SortChat
 function AppendRecentMessage(recent_message) {
@@ -165,12 +154,12 @@ function AppendRecentMessage(recent_message) {
 
   if(recent_message){
     console.log('latest message received')
-    console.log(recent_message);
+    console.log(recent_message.chat_message);
   }else{
     console.log('no recent messages')
   }
 
-  recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
+ /* recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
           <div className="message-chat-icon bg-light rounded-circle shadow"></div>
           <div className="flex-grow-1"></div>
           <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> {recent_message.chat_message}  </div>
@@ -180,11 +169,9 @@ function AppendRecentMessage(recent_message) {
 
   //console.log(recent_message_render)
   
-  return recent_message_render 
+  return recent_message_render */
 
 }
-
-
 
 function RenderChat() {
 
@@ -197,6 +184,7 @@ function RenderChat() {
 
     event.preventDefault();
     handleMssg(event.target.value);
+    console.log(handleMssgData())
     renderArray([renderTotalMessages, AppendRecentMessage(handleMssgData())])
     
   }
@@ -208,30 +196,18 @@ function RenderChat() {
   }
 
   function handleMssgData (){
-
-    Axios.post('http://localhost:3001/sendMessage', {
+    //Appends to rendering array
+     Axios.post('http://localhost:3001/sendMessage', {
 
       auth_message: sent_data,
       auth_message_user: localStorage.getItem("fullName"),
       auth_mssg_receiver: AuthChat.receiver_name
 
     }).then((response => {
-
-      console.log(response.data)
-     
-    
-    }));
-
-    //Appends to rendering array
-    return Axios.post('http://localhost:3001/grabLatestMessage', {
-
-      recent_mssg: sent_data
-
-    }).then((response => {
       
-      console.log(response.data)
+      console.log(response.data);
       return response.data
-    
+
     }));
 
   }
@@ -268,12 +244,8 @@ function RenderChat() {
             
       </div>
     </form>
-
     </React.Fragment>
-    
-    
   );
-
 }
 
 class RenderMessage extends Component {
@@ -387,12 +359,12 @@ class RenderMessage extends Component {
     
                       {/*----MESSAGE DISPLAY ITEM----- */}
 
-                      <Example />
+                     
                       <RenderChat />
     
                     </div>
                       
-                    {/* FORRRMMMMM GOESSSS HEEERREEEE FOR BACKUP */}
+                    {/* FORRRMMMMM GOESSSS HEEERREEEE FOR BACKUP   <Example />*/}
                 
                 </div>
     
