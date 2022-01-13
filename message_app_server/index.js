@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '***********',
+    password: '**********',
     database: 'message_app_db',
     multipleStatements: 'true'
 
@@ -318,19 +318,21 @@ app.post('/grabChatInfo', async (req, res) => {
 
     const sender_name = req.body.sender_name_rec;
     const receiver_name = req.body.reciver_name_rec;
+    const sender_name_rec_b = req.body.sender_name_rec_b;
+    const receiver_name_rec_b = req.body.receiver_name_rec_b;
 
-    const chatInfo_SQLCheck = "SELECT DISTINCT * FROM message_app_db.chat_thread WHERE sender = ? and receiver = ?";
+    const chatInfo_SQLCheck = "SELECT DISTINCT * FROM message_app_db.chat_thread WHERE sender = ? and receiver = ?; SELECT DISTINCT * FROM message_app_db.chat_thread WHERE sender = ? and receiver = ?";
     
     db.query(
 
         chatInfo_SQLCheck,
-        [sender_name, receiver_name],
+        [sender_name, receiver_name,sender_name_rec_b, receiver_name_rec_b],
         (err, result) => {
 
             if(err){
                 console.log(err);
             }else{
-                console.log(result);
+                console.log(result[0]);
             }
 
             res.send(result);

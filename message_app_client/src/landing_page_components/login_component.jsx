@@ -66,7 +66,7 @@ class Login_Form extends Component {
                     un_auth_user_mssg: response.data.message
 
                 });
-                console.log(response);
+               // console.log(response);
                 
             } //Else if there is a match
             else if(response.data){
@@ -77,7 +77,7 @@ class Login_Form extends Component {
                 
                 localStorage.setItem('friends_list', response.data[0].friends_list);
 
-                console.log(JSON.parse(localStorage.getItem('friends_list'))[0]);
+                //console.log(JSON.parse(localStorage.getItem('friends_list'))[0]);
 
                 localStorage.setItem('fullName', response.data[0].user_name);
                 localStorage.setItem('auth_req', response.data[0].incoming_friend_req);
@@ -96,7 +96,7 @@ class Login_Form extends Component {
 
                 //Enable authentication
                 
-                console.log(response);
+                //console.log(response);
 
             }
            

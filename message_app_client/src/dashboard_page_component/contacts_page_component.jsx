@@ -16,6 +16,30 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.rtl.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 
+//Sorts chat messags of both sender and receiver
+function totalChatSorter(sender_mssges, receiver_mssgs){
+
+  for(var i = 0; i <= sender_mssges.length-1; i++){
+
+    console.log(sender_mssges[i]);
+    AuthChat.exist_total_messages.push(sender_mssges[i]);
+
+  }
+
+  for(var x = 0; x <= receiver_mssgs.length-1; x++){
+
+    console.log(receiver_mssgs[x]);
+    AuthChat.exist_total_messages.push(receiver_mssgs[x]);
+    
+  }
+
+  if(AuthChat.exist_total_messages)
+
+  console.log('function is working');
+  console.log(AuthChat.exist_total_messages);
+
+}
+
 class Contact_Component extends Component {
     
     constructor(props){
@@ -150,19 +174,26 @@ class Contact_Component extends Component {
             Axios.post('http://localhost:3001/grabChatInfo', {
 
               sender_name_rec: this.state.sender_name,
-              reciver_name_rec: this.state.receiver_name
+              reciver_name_rec: this.state.receiver_name,
+              sender_name_rec_b: this.state.receiver_name,
+              receiver_name_rec_b: this.state.sender_name
 
             }).then((response => {
 
-             // console.log(response.data);
-              //console.log(response.data[0].chat_message);
-
-              //Store chat data and store for message_render_component.jsx
-              AuthChat.exist_chat_messages = response.data;
+              //console.log(response.data[1]);
+             
+              AuthChat.exist_chat_messages_from_sender = response.data[0]
+              AuthChat.exist_chat_messages_from_receiver = response.data[1]
+             
+              totalChatSorter(AuthChat.exist_chat_messages_from_sender, AuthChat.exist_chat_messages_from_receiver);
+              // AuthChat.exist_total_messages.push.apply(AuthChat.exist_chat_messages_from_receiver, AuthChat.exist_chat_messages_from_sender)
+             
+             
+              //console.log(AuthChat.exist_chat_messages_from_sender);
+              //console.log(AuthChat.exist_chat_messages_from_receiver);
+              //console.log('total', AuthChat.exist_total_messages)
+             // AuthChat.exist_chat_messages_from_receiver = response.data[1];
               AuthChat.receiver_name = this.state.receiver_name;
-
-             // //console.log(AuthChat.receiver_name);
-              //console.log(AuthChat.exist_chat_messages);
               
               this.props.history.push('/messages');
               //console.log(AuthChat.exist_chat_messages[0].chat_message);

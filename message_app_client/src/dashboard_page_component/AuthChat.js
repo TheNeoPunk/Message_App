@@ -3,11 +3,16 @@ class AuthChat {
     constructor(){
 
         this.authorize_Chat = false;
-        this.exist_chat_messages = [];
+        
+        //chats from both parties
+        this.exist_chat_messages_from_sender = [];
+        this.exist_chat_messages_from_receiver = [];
+        
+        //Join total messages together for rendering sorting
+        this.exist_total_messages = [];
+
         this.updated_chat = [];
         this.receiver_name = null;
-
-        console.log(this.exist_chat_messages);
 
     }
 

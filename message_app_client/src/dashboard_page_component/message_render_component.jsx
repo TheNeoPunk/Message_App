@@ -113,6 +113,8 @@ function SortChat (authchat_messages) {
     }
   
   }
+
+  console.log(total_messages)
   
   return total_messages
 
@@ -169,7 +171,7 @@ function AppendRecentMessage(recent_message) {
 
 function RenderChat() {
 
-  let [renderTotalMessages, renderArray] = useState(SortChat(AuthChat.exist_chat_messages));
+  let [renderTotalMessages, renderArray] = useState(SortChat(AuthChat.exist_total_messages));
 
   let sent_data = useState(null);
   let sent_user_input = useRef(null);
@@ -181,7 +183,7 @@ function RenderChat() {
     event.preventDefault();
     handleMssg(event.target.value);
     handleMssgData()
-    //renderArray([renderTotalMessages, AppendRecentMessage()])
+    renderArray([renderTotalMessages, AppendRecentMessage()])
     //console.log(recentMssgArr)
     
   }
@@ -207,32 +209,19 @@ function RenderChat() {
       auth_mssg_receiver: AuthChat.receiver_name
 
     }).then(function (results) {
-
-      // setNewMssg([recentMssgArr, results[0]]);
+  
       console.log(results.data[0])
       renderArray([renderTotalMessages, AppendRecentMessage(results.data[0])])
-      //return results.data[0]
- 
+     
      });
   
-    //return mssgReturn.data
+ 
   }
 
   useEffect(() => {
     // Update the document title using the browser API
     
   });
-
-  /*async function MssgDataPromiseReturn(){
-
-    Promise.resolve([handleMssgData()]).then(function (results) {
-
-     // setNewMssg([recentMssgArr, results[0]]);
-     console.log(results)
-
-    });
-
-  };*/
 
   return (
     <React.Fragment>
