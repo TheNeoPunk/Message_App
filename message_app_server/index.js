@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '***********',
+    password: '**********',
     database: 'message_app_db',
     multipleStatements: 'true'
 
@@ -326,13 +326,13 @@ app.post('/grabChatInfo', async (req, res) => {
     db.query(
 
         chatInfo_SQLCheck,
-        [sender_name, receiver_name,sender_name_rec_b, receiver_name_rec_b],
+        [sender_name, receiver_name, sender_name_rec_b, receiver_name_rec_b],
         (err, result) => {
 
             if(err){
                 console.log(err);
             }else{
-                console.log(result[0]);
+                console.log(result);
             }
 
             res.send(result);

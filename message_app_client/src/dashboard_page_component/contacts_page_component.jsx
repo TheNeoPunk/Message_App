@@ -19,49 +19,19 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 //Sorts chat messags of both sender and receiver
 function totalChatSorter(sender_mssges, receiver_mssgs, response_info){
 
-  console.log(response_info);
+  //console.log(response_info);
+  //console.log(sender_mssges);
+  //console.log(receiver_mssgs);
+  const total_response_mssges_sorted = [...sender_mssges, ...receiver_mssgs]
+ 
 
-  //Sort messages of logged in user
-  for(var i = 0; i <= sender_mssges.length-1; i++){
+  total_response_mssges_sorted.sort(function(total_response_mssges,total_response_mssges_sorted){
+    return new Date(total_response_mssges.mssg_date) - new Date(total_response_mssges_sorted.mssg_date)
+    
+  });
 
-    //console.log(sender_mssges[i]);
-    var sender_date = new Date(sender_mssges[i].mssg_date);
-   // console.log(sender_date);
-
-    //Sort messages from friend
-    for(var c = 0; c <= receiver_mssgs.length-1; c++){
-      
-      var receiver_date = new Date(receiver_mssgs[c].mssg_date);
-
-      if(sender_date <= receiver_date){
-
-        //console.log('This is more recent', sender_date);
-        AuthChat.exist_total_messages.push(sender_mssges[i]);
-        //console.log(sender_mssges[i]);
-
-      }else{
-
-        //console.log('This is not the most recent', sender_date);
-        AuthChat.exist_total_messages.push(receiver_mssgs[c]);
-        //console.log(receiver_mssgs[c]);
-      
-      }
-    }
-  }
-
-  //Prevent rerender of existing messages more than once
-  if(AuthChat.exist_total_messages.length >= response_info) {
-
-    AuthChat.exist_total_messages.length = response_info;
-
-  }
-
-  
-  for(var x = 0 ; x <= AuthChat.exist_total_messages.length-1; x++){
-
-    console.log(AuthChat.exist_total_messages[x]);
-
-  }
+  console.log(total_response_mssges_sorted)
+  AuthChat.exist_total_messages = total_response_mssges_sorted
   
 }
 
@@ -213,18 +183,11 @@ class Contact_Component extends Component {
               var total_response_length = response.data[0].length + response.data[1].length;
 
               totalChatSorter(AuthChat.exist_chat_messages_from_sender, AuthChat.exist_chat_messages_from_receiver, total_response_length);
-              // AuthChat.exist_total_messages.push.apply(AuthChat.exist_chat_messages_from_receiver, AuthChat.exist_chat_messages_from_sender)
              
-             
-              //console.log(AuthChat.exist_chat_messages_from_sender);
-              //console.log(AuthChat.exist_chat_messages_from_receiver);
-              //console.log('total', AuthChat.exist_total_messages)
-             // AuthChat.exist_chat_messages_from_receiver = response.data[1];
               AuthChat.receiver_name = this.state.receiver_name;
               
               this.props.history.push('/messages');
-              //console.log(AuthChat.exist_chat_messages[0].chat_message);
-
+              
             }));
 
           };
