@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';  
 import Axios from 'axios';
 
 //ICON imports
-import { BsGrid1X2Fill, BsPlusCircle } from "react-icons/bs";
+import { BsGrid1X2Fill, BsImageFill, BsPlusCircle } from "react-icons/bs";
 import { BsUpload } from "react-icons/bs";
 import { BsFillGridFill } from "react-icons/bs";
 import { BsPersonPlus } from "react-icons/bs";
@@ -78,14 +78,9 @@ function SortChat (authchat_messages) {
 
   //Go through the chat list of the current sender and receiver and sort them 
   for(var x = 0; x <= authchat_messages.length-1; x++){
-    //console.log(authchat_messages[x].sender)
-    //console.log(x)
-    // console.log(authchat_messages.messageList[x].sender)
-    
-  //Send to sender list
+ 
+    //Send to sender list
     if(authchat_messages[x].sender == localStorage.getItem('fullName')){
-
-      //console.log('These messages are from the sender');
 
       total_messages.push(
     
@@ -97,10 +92,8 @@ function SortChat (authchat_messages) {
                        
       ); 
 
-      //Send to receiver sender list
+    //Send to receiver sender list
     }else if(authchat_messages[x].sender != localStorage.getItem('fullName')){
-
-      //console.log('These messages are for the receiver');
 
       total_messages.push(  
         <div className="message-item-box p-4 fill-width d-flex flex-row-reverse">
@@ -113,9 +106,7 @@ function SortChat (authchat_messages) {
     }
   
   }
-
-  console.log(total_messages)
-  
+ 
   return total_messages
 
 }
@@ -153,10 +144,10 @@ function SortChat (authchat_messages) {
 function AppendRecentMessage(recent_message) {
 
   if(recent_message){
-    console.log('latest message received')
+    //console.log('latest message received')
     console.log(recent_message.chat_message);
   }else{
-    console.log('no recent messages')
+   // console.log('no recent messages')
   }
 
   var recent_message_render = <div className="message-item-box p-4 fill-width d-flex">
@@ -176,14 +167,14 @@ function RenderChat() {
   let sent_data = useState(null);
   let sent_user_input = useRef(null);
 
-  const [recentMssgArr, setNewMssg] = useState([]);
+  //const [recentMssgArr, setNewMssg] = useState([]);
 
   function modifyTotalMessages (event) {
 
     event.preventDefault();
     handleMssg(event.target.value);
     handleMssgData()
-    renderArray([renderTotalMessages, AppendRecentMessage()])
+    //renderArray([renderTotalMessages, AppendRecentMessage()])
     //console.log(recentMssgArr)
     
   }
@@ -210,7 +201,7 @@ function RenderChat() {
 
     }).then(function (results) {
   
-      console.log(results.data[0])
+      //console.log(results.data[0])
       renderArray([renderTotalMessages, AppendRecentMessage(results.data[0])])
      
      });
