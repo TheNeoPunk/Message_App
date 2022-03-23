@@ -12,7 +12,7 @@ const db = mysql.createPool({
     //Pool access credentials
     host: 'localhost',
     user: 'root',
-    password: '**********',
+    password: '************',
     database: 'message_app_db',
     multipleStatements: 'true'
 
@@ -88,8 +88,6 @@ app.post('/login', async ( req, res) => {
     //body parsing user insertted login data
     const email = req.body.auth_email;
     const password = req.body.auth_pass;
-    //const encrypt_pass = req.body.encryption.password,
-    //const iv = req.body.encryption.iv
 
     //SQL command to select existing queries in DB
     const sqlLoginSLC = "SELECT DISTINCT user_email , friends_list, user_name, user_pass, iv, user_phone, incoming_friend_req, recent_activity, total_activity, short_desc, number_of_friends, messages_sent, num_of_contacts FROM message_app_db.user_info WHERE user_email = ?";
@@ -113,22 +111,13 @@ app.post('/login', async ( req, res) => {
                 //Log decryption
                 const decipheredPass = decrypt(result[0].user_pass, result[0].iv);
                 if(password === decipheredPass){
-
                     console.log(decrypt(result[0].user_pass, result[0].iv));
-
                     //Send result
                     res.send(result);
-                    
                 }else{
-
                     //Send feedback otherwise
                     res.send({message: "Incorrect credentials"});
-
                 }
-                //Send decrypted password
-                //res.send(decrypt(password));
-                //console.log(result);
-
             }else{
                 //Send feedback otherwise
                 res.send({message: "Incorrect credentials"});
@@ -155,14 +144,9 @@ app.get('/getOnlineUser', async (req, res) => {
             }else{
                 console.log(result);
             }
-
             res.send(result);
-
         }
-
     );
-    
-
 });
 
 app.post('/friendRequest', async (req, res) => {
@@ -203,8 +187,6 @@ app.post('/sendMessage', (req, res) => {
     const user_a_name = req.body.auth_message_user;
     const user_b_name = req.body.auth_mssg_receiver;
 
-    //console.log(user_a_mssg);
-    //console.log(user_a_name);
 
     const createSQLCHATQuery = 
         "INSERT INTO message_app_db.chat_thread (chat_message, sender, receiver) VALUES (?,?,?); SELECT DISTINCT id, chat_message, sender, receiver FROM message_app_db.chat_thread WHERE chat_message = ?";
@@ -226,33 +208,7 @@ app.post('/sendMessage', (req, res) => {
     );
 });
 
-//After user sends a message, grab it for rendering
-/*app.post('/grabLatestMessage', async (req, res) => {
 
-    
-    console.log(recent_mssg)
-    const SelectRecentQuery = "SELECT DISTINCT id, chat_message, sender, receiver FROM message_app_db.chat_thread WHERE chat_message = ?";
-
-    db.query(
-        SelectRecentQuery,
-        [recent_mssg],
-        (err, result) => {
-
-            if(err){
-                console.log(err);
-            }else{
-                console.log('message grabbed');
-                console.log(result);
-            }
-           
-            res.send(result);
-        }
-
-    )
-
-
-});
-*/
 app.post('/checkChat',  async (req, res) => {
 
     const sender_name = req.body.sender_name_rec;
@@ -341,6 +297,28 @@ app.post('/grabChatInfo', async (req, res) => {
 
     )
 
+});
+
+app.get('/getUpdatedContacts', async (req, res) => {
+
+    const loggedInUser = req.query.curr_user;
+    console.log("Current logged user", req.query.curr_user);
+    const contact_SQLCheck = "SELECT DISTINCT friends_list FROM message_app_db.user_info WHERE user_name = ?"
+
+    db.query(
+        contact_SQLCheck,
+        [loggedInUser],
+        (err, result) => {
+            if(err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+
+            res.send(result);
+
+        }
+    )
 });
 
 app.get('/', (req, res) => {

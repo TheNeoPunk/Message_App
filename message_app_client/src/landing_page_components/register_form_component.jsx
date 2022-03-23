@@ -119,7 +119,6 @@ class Register_Form extends Component {
         fullName.preventDefault();
 
         //Grabs the input name and value from the submission method call
-        //console.log(event.target.value);
 
         //Configures state object to whatever value is in the method
         this.setState({
@@ -137,7 +136,6 @@ class Register_Form extends Component {
         email.preventDefault();
 
         //Grabs the input name and value from the submission method call
-        //console.log(email.target.value);
 
         //Configures state object to whatever value is in the method
         this.setState({
@@ -191,7 +189,6 @@ class Register_Form extends Component {
         passC.preventDefault();
 
         //Grabs the input name and value from the submission method call
-        //console.log(email.target.value);
 
         //Configures state object to whatever value is in the method
         this.setState({
@@ -367,11 +364,7 @@ class Register_Form extends Component {
                                                   <div className="col text-center">
                                                  
                                                         <button type="submit" className="landing_button rounded-pill fs-3 fw-bold" onClick={this.redirectToDashboard}>
-                                                            {/*<Link
-                                                                style={{textDecoration: 'none', color: 'white'}} 
-                                                            to='/confirmation'> */}   
-                                                                Register
-                                                            {/*</Link>*/}
+                                                            Register
                                                         </button>
                                                
                                                         <Link 

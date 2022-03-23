@@ -12,65 +12,11 @@ import {BsFillCameraVideoFill} from "react-icons/bs";
 import {BsPhone} from "react-icons/bs";
 import AuthChat from './AuthChat';
 
-
 //Component imports
 import MessageHeader from './msg_chat_header';
 import { render } from '@testing-library/react';
 
-//Grab messages from the sender and the receiver
-/*function SortChat (authchat_messages) {
 
-  //console.log('This is working');
-  console.log(authchat_messages.messageList.length);
-
-  var total_messages = [];
-
-  //console.log(authchat_messages.messageList[0].sender);
-  //console.log(authchat_messages.messageList.length);
-  //console.log(localStorage.getItem('fullName'));
-  console.log()
-
-  //Go through the chat list of the current sender and receiver and sort them 
-  for(var x = 0; x <= authchat_messages.messageList.length-1; x++){
-
-    //console.log(x)
-    // console.log(authchat_messages.messageList[x].sender)
-    
-  //Send to sender list
-    if(authchat_messages.messageList[x].sender == localStorage.getItem('fullName')){
-
-      console.log('These messages are from the sender');
-
-      total_messages.push(
-    
-        <div className="message-item-box p-4 fill-width d-flex">
-          <div className="message-chat-icon bg-light rounded-circle shadow"></div>
-          <div className="flex-grow-1"></div>
-          <div className="message-chat-div p-2 fill-width fill-height rounded-pill"> {authchat_messages.messageList[x].chat_message}  </div>
-        </div>
-                       
-      ); 
-
-      //Send to receiver sender list
-    }else if(authchat_messages.messageList[x].sender != localStorage.getItem('fullName')){
-
-      console.log('These messages are for the receiver');
-
-      total_messages.push(  
-        <div className="message-item-box p-4 fill-width d-flex flex-row-reverse">
-          <div className="message-chat-icon bg-light rounded-circle shadow"></div>
-          <div className="flex-grow-1"></div>
-          <div className="message-chat-div p-2 fill-width fill-height rounded-pill">{authchat_messages.messageList[x].chat_message}</div>
-        </div>
-      );
-
-    }
-  
-  }
-
-  return total_messages
-
-}*/
 
 function SortChat (authchat_messages) {
 
@@ -111,35 +57,6 @@ function SortChat (authchat_messages) {
 
 }
 
-/*function Example() {
-  let [count, setCount] = useState(0);
-
-  let [arraysample, setArray] = useState([1,2,3,4]);
-
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-  });
-  //console.log(arraysample)
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <div>Here is it is {arraysample.map(item => <p>{item}</p>)}</div>
-      <button onClick={() => {
-        
-        setCount(count + 1)
-        setArray([arraysample, `Entry ${count}`]);
-      
-      }}>
-        Click me
-      </button>
-    </div>
-  );
-
-  
-}*/
-
 //Returns the recent message in html form similar to SortChat
 function AppendRecentMessage(recent_message) {
 
@@ -160,6 +77,7 @@ function AppendRecentMessage(recent_message) {
 
 }
 
+//Renders existing and appended chat messages ------------------------
 function RenderChat() {
 
   let [renderTotalMessages, renderArray] = useState(SortChat(AuthChat.exist_total_messages));
@@ -170,21 +88,12 @@ function RenderChat() {
   //const [recentMssgArr, setNewMssg] = useState([]);
 
   function modifyTotalMessages (event) {
-
     event.preventDefault();
     handleMssg(event.target.value);
     handleMssgData()
-    //renderArray([renderTotalMessages, AppendRecentMessage()])
-    //console.log(recentMssgArr)
-    
   }
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    //setNewMssg(handleMssgData());
-  });
-
-  function handleMssg  () {
+  function handleMssg() {
 
       sent_data = sent_user_input.current.value;
       //console.log(sent_data)
@@ -200,33 +109,24 @@ function RenderChat() {
       auth_mssg_receiver: AuthChat.receiver_name
 
     }).then(function (results) {
-  
       //console.log(results.data[0])
       renderArray([renderTotalMessages, AppendRecentMessage(results.data[0])])
-     
      });
-  
- 
   }
-
-  useEffect(() => {
-    // Update the document title using the browser API
-    
-  });
 
   return (
     <React.Fragment>
-      
-    <div>{renderTotalMessages.map(chat_item => chat_item)}</div>
+    
+    <div id="chat_display">{renderTotalMessages.map(chat_item => 
+      <div >
+       
+        <div role="button" type="button">{chat_item}</div>  
+      </div>)}
+    </div>
+
     <form class="fill-width">
       {/*------MEDSSAGE INPUT --------*/}
       <div className="message-chat-box border-primary p-4 fill-width d-flex" > 
-        
-        {/*} <div className="p-2">
-
-          <BsPlusCircle/>
-  
-        </div>*/}
 
         <div className="message-box-input fill-width">
       
@@ -266,79 +166,11 @@ class RenderMessage extends Component {
 
     }
 
-    //activated when user enters a new message 
-    /*multipleFunctions(event) {
-
-      event.preventDefault();
-
-      this.handleMssgData
-      
-
-    }*/
-
-   /* modifyTotalMessages = (event) => {
-
-      console.log('append');
-      event.preventDefault();
-      this.handleMssg(event.target.value);
-      this.handleMssgData();
-      console.log(this.state.render_total_messages)
-
-    }
-
-    handleMssg = (new_message) => {
-
-        /* Axios.post('http://localhost:3001/sendMessage',{
-          auth_message: ,
-          auth_message_user:,
-          auth_message_data:
-  
-        })
-        
-        this.setState({
-  
-          sent_data: new_message
-  
-        });
-  
-    }
-  
-    handleMssgData = () => {
-      Axios.post('http://localhost:3001/sendMessage', {
-
-        auth_message: this.state.sent_data,
-        auth_message_user: localStorage.getItem("fullName"),
-        auth_mssg_receiver: AuthChat.receiver_name
-
-      }).then((response => {
-
-        console.log(response.data)
-        //Appends to rendering array
-        Axios.post('http://localhost:3001/grabLatestMessage', {
-
-          recent_mssg: this.state.sent_data
-
-        },).then((response => {
-          console.log(response.data);
-        }));
-       // this.SortChat(this.state.existing_messages.push(response.data))
-        //console.log(response.data[0].message, response.data[0].name);
-      }));
-    }*/
-
     //When the component mounts
     componentDidMount = () => {
 
       AuthChat.authorize_Chat = false;
-      
-      //console.log(this.state.existing_messages.length);
-      //console.log(SortChat(this.state.existing_messages))
-      //console.log('mounted');
    
-    }
-
-    componentDidUpdate = () => {
-
     }
 
     render() {
@@ -361,12 +193,10 @@ class RenderMessage extends Component {
     
                       {/*----MESSAGE DISPLAY ITEM----- */}
 
-                     
                       <RenderChat />
     
                     </div>
                       
-                    {/* FORRRMMMMM GOESSSS HEEERREEEE FOR BACKUP   <Example />*/}
                 
                 </div>
     

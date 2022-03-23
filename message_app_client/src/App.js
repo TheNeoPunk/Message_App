@@ -1,8 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';  //import for page navigation
 import ProtectRoute from './dashboard_page_component/ProtectRoute';
-import { useState } from 'react';
-
 
 //Component imports
 import Intro from './landing_page_components/intro_component';
@@ -43,10 +41,6 @@ function App() {
         <ProtectRoute path="/messages" component={Message_Component} />
         <ProtectRoute path="/contacts" component={Contact_Component} />
         <ProtectRoute path="/settings" component={Setting_Component} />
-
-        {/*<Route path="/messages" component={Dashboard_Component} />
-        <Route path="/contacts" component={Dashboard_Component} />
-  <Route path="/settings" component={Dashboard_Component} />*/}
       </Switch>
 
      </Router>

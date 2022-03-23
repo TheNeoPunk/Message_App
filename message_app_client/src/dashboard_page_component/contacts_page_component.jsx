@@ -19,19 +19,15 @@ import '../../node_modules/bootstrap/dist/css/bootstrap-utilities.css';
 //Sorts chat messags of both sender and receiver
 function totalChatSorter(sender_mssges, receiver_mssgs, response_info){
 
-  //console.log(response_info);
-  //console.log(sender_mssges);
-  //console.log(receiver_mssgs);
   const total_response_mssges_sorted = [...sender_mssges, ...receiver_mssgs]
  
-
   total_response_mssges_sorted.sort(function(total_response_mssges,total_response_mssges_sorted){
     return new Date(total_response_mssges.mssg_date) - new Date(total_response_mssges_sorted.mssg_date)
     
   });
 
-  console.log(total_response_mssges_sorted)
-  AuthChat.exist_total_messages = total_response_mssges_sorted
+  console.log(total_response_mssges_sorted);
+  AuthChat.exist_total_messages = total_response_mssges_sorted;
   
 }
 
@@ -57,26 +53,29 @@ class Contact_Component extends Component {
 
     componentDidMount = () => {
 
-      //Grab friends list
-      var friends_list = JSON.parse(localStorage.getItem('friends_list'));
-
-      if(this.state.user_friends_list.length >= localStorage.getItem('friends_list').length){
-
-        friends_list.length = localStorage.getItem('friends_list').length;
-
-      }
+      console.log(localStorage.getItem('fullName'))
       
-     // console.log(friends_list[0]);
+      //Grab friends list
+      Axios.get("http://localhost:3001/getUpdatedContacts", {
+        params: {
+          curr_user: localStorage.getItem('fullName')
+        }
+      }).then((response) => {
 
-      this.setState({
+        console.log(response.data);
+        var refreshed_friends_list = JSON.parse(response.data[0].friends_list)
+        console.log(refreshed_friends_list);
+        this.setState({
 
-        user_friends_list: friends_list
-
-      });
+          user_friends_list: refreshed_friends_list
+  
+        });
+        
+      })
 
       if(AuthChat.authorize_Chat == true){
 
-        console.log('Authorized');
+        //console.log('Authorized');
         this.setState({
 
           sender_name: localStorage.getItem('fullName')
@@ -86,32 +85,17 @@ class Contact_Component extends Component {
 
       }else{
 
-        console.log('Unauthorized');
+        //console.log('Unauthorized');
       }
         
-    }
-
-    componentDidUpdate = () => {
-
-      //console.log(this.state.user_friends_list);
-
     }
 
     activateChat = async (receive_user) => {
 
       AuthChat.authorize_Chat = true;
       this.searchThread = false;
-
-      //var id_gen = Math.floor(Math.random() * 100);
-
-      //console.log(id_gen);
       
       this.senderName = localStorage.getItem('fullName');
-      
-      //console.log('Generate new chat thread');
-      //console.log(this.state.user_friends_list);
-      //console.log(receive_user);
-
       this.setState({
 
         sender_name: this.senderName,
@@ -128,8 +112,6 @@ class Contact_Component extends Component {
 
         }).then((response => { //Give out response after checking
 
-          //console.log(response.data);
-          //console.log(response.data.length);
 
           //If there is no chat thread currently existing
           if(response.data.length == 0){
@@ -195,41 +177,6 @@ class Contact_Component extends Component {
         }));
 
       });
-     
-      /*//First check for existing chat threads between Sender and Receiver
-      Axios.post('http://localhost:3001/checkChat',{
-
-        //gen_chat_id: this.state.generated_chat_id,
-        sender_name_rec: this.state.sender_name,
-        reciver_name_rec: this.state.receiver_name
-
-      }).then((response => { //Give out response after checking
-
-        console.log(response.data);
-        //console.log(response.data.length);
-
-        //If there is no chat thread currently existing
-        /*if(response.data.length == 0){
-
-          //Create the chat thread
-          console.log('the whole thing is null');
-          Axios.post('http://localhost:3001/generateChat', {
-
-            gen_chat_id: this.generated_chat_id,
-            default_chat_mssg: this.default_chat_mssg,
-            sender_name_rec: this.state.sender_name,
-            reciver_name_rec: this.state.receiver_name
-
-          });
-
-        }else if (response.data.length != 0){ //Else if it DOES EXIST
-
-          //pull up the existing thread
-          console.log("The chat does exist");
-
-        };
-
-      }));*/
 
     }
 

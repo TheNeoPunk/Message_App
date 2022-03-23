@@ -43,9 +43,7 @@ class Login_Form extends Component {
     handleSubmit = (event) => {
 
         auth.authenticated = true;
-        //console.log(auth.authenticated)
         const auth_Data = this.state;
-        //console.log(auth_Data.auth_email, auth_Data.auth_pass);
         
         //********************LOGIN DATA REQUEST********************************* */
 
@@ -76,9 +74,6 @@ class Login_Form extends Component {
                 localStorage.setItem('phone', response.data[0].user_phone);
                 
                 localStorage.setItem('friends_list', response.data[0].friends_list);
-
-                //console.log(JSON.parse(localStorage.getItem('friends_list'))[0]);
-
                 localStorage.setItem('fullName', response.data[0].user_name);
                 localStorage.setItem('auth_req', response.data[0].incoming_friend_req);
                 localStorage.setItem('auth_activity', response.data[0].recent_activity);
@@ -95,8 +90,7 @@ class Login_Form extends Component {
                 });
 
                 //Enable authentication
-                
-                //console.log(response);
+
 
             }
            
@@ -159,8 +153,6 @@ class Login_Form extends Component {
         //If login credential is authorized
         if(this.state.auth_to_redir){
 
-            //Redirect with existing user data
-            //console.log(this.state.auth_to_redir);
             return <Redirect to={{
 
                 pathname: "/dashboard",

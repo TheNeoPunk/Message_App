@@ -114,8 +114,7 @@ class Message_Component extends Component {
       if(this.state.available_users.length >= response.data.length){
 
         updated_users.length = response.data.length;
-        //console.log(this.state.available_users.length);
-        //console.log(response.data.length);
+    
       }
 
       this.setState({
@@ -125,7 +124,7 @@ class Message_Component extends Component {
       });
 
       console.log(this.state.available_users);
-      console.log(this.state.available_users[3].id);
+      //console.log(this.state.available_users[3].id);
 
     });
 
