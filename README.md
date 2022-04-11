@@ -1,5 +1,5 @@
 # Message_App
-This project is to simulate a functioning front end and back end.
+This is a full-stack project simulates a messenger application.
 
 To view the front end code:
 message_app_client > src
